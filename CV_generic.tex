@@ -1,0 +1,98 @@
+%
+% Se define el tamaño de letra principal:
+%
+\documentclass[8pt]{extarticle}
+
+%
+% Título y autor(es):
+%
+\title{Currículum Vitae}
+\author{von Bergen}
+
+%------------------------- Carga de paquetes --------------------------%
+% Se define el tamaño de página y los márgenes:
+\usepackage{calc}
+\usepackage[a4paper,centering]{geometry}
+\setlength{\topmargin}{\topmargin - 0.1\textheight}
+\setlength{\textheight}{1.2\textheight}
+\setlength{\oddsidemargin}{\oddsidemargin - 0.1\textwidth}
+\setlength{\textwidth}{1.2\textwidth}
+
+% Se va a escribir en castellano:
+\usepackage[utf8]{inputenc}
+\usepackage[\selectedvariety,showlanguages]{babel}
+%\usepackage[\selectedvariety , useregional=numeric]{datetime2}
+\usepackage[\selectedvariety , \selectedformatdate]{datetime2}
+\usepackage{xspace}
+
+\newcommand*{\DTMdisplaydatemmyyyy}[2]{%
+	\DTMtwodigits{#2}\DTMsep{yearmonth}\number#1\xspace%
+}
+
+% Archivo que define los macros comunes.
+\usepackage{cv/common}
+
+% Archivo que define los macros del idioma.
+\usepackage{cv/\selectedlanguage /\selectedlanguage}
+
+% Para tener cabecera y pie de página con un estilo personalizado:
+\usepackage{fancyhdr}
+
+% Añadir el entorno tabu, permite manejar mejor el texto dentro de tablas.
+\usepackage{tabu}
+% En el entorno tabular, permite unir filas.
+\usepackage{multirow}
+
+% Permite separar el texto en columnas.
+\usepackage{multicol}
+
+% Permite modificar el espaciado de las section y subsection.
+\usepackage{titlesec}
+\titlespacing*{\section}{0pt}{0.5\baselineskip}{0.5\baselineskip}
+\titlespacing*{\subsection}{0pt}{0.2\baselineskip}{0.2\baselineskip}
+\titleformat*{\subsection}{\large\bfseries}
+\titleformat*{\subsection}{\normalsize\bfseries}
+
+\usepackage{amssymb}
+
+% Para enlaces clickeables
+\usepackage{xcolor}
+\definecolor{DarkBlue}{rgb}{0.0,0.0,0.2} % defino el color azul oscuro
+\usepackage[colorlinks=true, linkcolor=DarkBlue, urlcolor=DarkBlue]{hyperref}
+
+%------------------------------ graphicx ----------------------------------
+% Para incluir imágenes, el siguiente código carga el paquete graphicx según se está generando un archivo dvi o un pdf (con pdflatex). 
+% Para generar dvi, descomente la línea siguiente:
+\usepackage{graphicx}
+% Para que las imágenes se coloquen en el lugar.
+\usepackage{float}
+% Para generar pdf (descomente las dos líneas siguientes):
+%\usepackage[pdftex]{graphicx}
+%\pdfcompresslevel=9
+
+% Todas las imgenes están en el directorio tp-images:
+\newcommand{\imgdir}{images}
+\graphicspath{{\imgdir/}}
+
+%------------------------- Inicio del documento ---------------------------
+\begin{document}
+% Hago que el manejo de fin de línea no sea tan estricto.
+\sloppy
+
+% Hago que en la cabecera de página se muestre a la derecha la sección, y en el pie, el número de página a la derecha:
+\pagestyle{fancy}
+\renewcommand{\sectionmark}[1]{\markboth{}{\thesection\ \ #1}}
+\lhead{}
+\chead{}
+\rhead{\rightmark}
+\lfoot{}
+\cfoot{}
+%\rfoot{\thepage\ - \pageref{LastPage}}
+
+% Hago que las páginas se comiencen a contar a partir de aquí:
+\setcounter{page}{1}
+
+% Inicio del CV:
+\input{./CV_generic_info.tex}
+
+\end{document}
