@@ -1,5 +1,20 @@
-\ProvidesPackage{layout}[2026/05/28 v0.2 Minimal CV layout]
+\ProvidesPackage{layout}[2026/05/28 v0.3 Modern CV layout]
 
+% --- Layout tokens ---
+\newlength{\cvperiodwidth}
+\setlength{\cvperiodwidth}{2.45cm}
+\newlength{\cvlogocolwidth}
+\setlength{\cvlogocolwidth}{1.55cm}
+\newlength{\cvskilllabelwidth}
+\setlength{\cvskilllabelwidth}{2.45cm}
+\newlength{\cvlogowidth}
+\setlength{\cvlogowidth}{1.35cm}
+
+\newcommand{\cvsectionvspace}{0.55em}
+\newcommand{\cventryvspace}{0.5em}
+\newcommand{\cvskillrowvspace}{0.18em}
+
+% --- Header ---
 \newcommand{\cvname}[1]{%
   {\LARGE\bfseries #1\par}%
   \vspace{0.35em}%
@@ -7,25 +22,95 @@
 
 \newcommand{\cvrole}[1]{%
   {\normalsize #1\par}%
-  \vspace{0.25em}%
+  \vspace{0.22em}%
 }
+
+\newcommand{\cvhref}[2]{\href{#1}{#2}}
 
 \newcommand{\cvcontact}[1]{%
   {\small #1\par}%
-  \vspace{0.9em}%
+  \vspace{0.45em}%
+  \noindent{\color{cvrule}\rule{\textwidth}{0.4pt}}%
+  \vspace{0.65em}%
 }
 
 \newcommand{\cvsection}[1]{%
-  \vspace{0.55em}%
+  \vspace{\cvsectionvspace}%
   {\bfseries\MakeUppercase{#1}\par}%
-  \vspace{0.35em}%
+  \vspace{0.32em}%
 }
 
-% #1 period | #2 title | #3 organization | #4 body (usually itemize)
-\newcommand{\cventry}[4]{%
-  \textbf{#2}\hfill{\small #1}\par
-  {\textit{#3}}\par
-  \vspace{0.15em}%
-  #4%
-  \vspace{0.45em}%
+% --- Skills row: label | body ---
+\newcommand{\cvskillrow}[2]{%
+  \noindent
+  \begin{tabularx}{\textwidth}{@{}>{\bfseries}p{\cvskilllabelwidth}@{}>{\raggedright\arraybackslash}X@{}}
+    #1: & #2 \\
+  \end{tabularx}%
+  \par\vspace{\cvskillrowvspace}%
+}
+
+% --- Optional logo (assets/logos/<file>) ---
+\newcommand{\cvprintlogo}[1]{%
+  \begingroup
+  \def\cv@logofile{#1}%
+  \def\cv@logorempty{}%
+  \ifx\cv@logofile\cv@logorempty
+  \else
+    \IfFileExists{assets/logos/\cv@logofile}{%
+      \raisebox{-0.15em}{\includegraphics[width=\cvlogowidth,keepaspectratio]{assets/logos/\cv@logofile}}%
+    }{}%
+  \fi
+  \endgroup
+}
+
+% --- Experience entry: period | title/org/bullets | optional logo ---
+\newcommand{\cventry}[5]{%
+  \vspace{\cventryvspace}%
+  \noindent
+  \def\cv@entrylogo{#4}%
+  \def\cv@logorempty{}%
+  \ifx\cv@entrylogo\cv@logorempty
+    \begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{\cvperiodwidth}@{}>{\raggedright\arraybackslash}X@{}}
+      {\small #1} &
+      \begin{minipage}[t]{\linewidth}
+        \textbf{#2}\par
+        {\textit{#3}}\par
+        \vspace{0.12em}%
+        #5%
+      \end{minipage} \\
+    \end{tabularx}%
+  \else
+    \begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{\cvperiodwidth}@{}>{\raggedright\arraybackslash}X@{}>{\raggedleft\arraybackslash}p{\cvlogocolwidth}@{}}
+      {\small #1} &
+      \begin{minipage}[t]{\linewidth}
+        \textbf{#2}\par
+        {\textit{#3}}\par
+        \vspace{0.12em}%
+        #5%
+      \end{minipage} &
+      \cvprintlogo{#4} \\
+    \end{tabularx}%
+  \fi
+  \par
+}
+
+% --- Education: same column layout, no bullets ---
+\newcommand{\cveducation}[4]{%
+  \vspace{\cventryvspace}%
+  \noindent
+  \def\cv@entrylogo{#4}%
+  \def\cv@logorempty{}%
+  \ifx\cv@entrylogo\cv@logorempty
+    \begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{\cvperiodwidth}@{}>{\raggedright\arraybackslash}X@{}}
+      {\small #1} &
+      \textbf{#2}\par{\textit{#3}} \\
+    \end{tabularx}%
+  \else
+    \begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{\cvperiodwidth}@{}>{\raggedright\arraybackslash}X@{}>{\raggedleft\arraybackslash}p{\cvlogocolwidth}@{}}
+      {\small #1} &
+      \textbf{#2}\par{\textit{#3}} &
+      \cvprintlogo{#4} \\
+    \end{tabularx}%
+  \fi
+  \par
 }

@@ -16,11 +16,13 @@ CONTENT := \
 	content/40-education.tex \
 	content/50-languages.tex
 
+LOGOS := $(wildcard assets/logos/*)
+
 .PHONY: all clean distclean
 
 all: $(PDF)
 
-$(PDF): main.en.tex preamble.tex layout.sty $(CONTENT)
+$(PDF): main.en.tex preamble.tex layout.sty $(CONTENT) $(LOGOS)
 	@mkdir -p "$(OUTDIR)"
 	$(TEX) $(TEXFLAGS) -output-directory="$(OUTDIR)" -jobname="$(JOBNAME)" "$(MAIN).tex"
 
