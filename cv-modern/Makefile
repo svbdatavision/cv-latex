@@ -14,7 +14,8 @@ CONTENT := \
 	content/20-skills.tex \
 	content/30-experience.tex \
 	content/40-education.tex \
-	content/50-languages.tex
+	content/50-languages.tex \
+	content/55-community.tex
 
 LOGOS := $(wildcard assets/logos/*)
 

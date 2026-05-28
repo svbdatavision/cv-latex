@@ -1,4 +1,4 @@
-\ProvidesPackage{layout}[2026/05/28 v0.6 Skills hierarchy and visual rhythm]
+\ProvidesPackage{layout}[2026/05/28 v0.7 Professional content and rhythm]
 
 % --- Layout tokens ---
 \newlength{\cvperiodwidth}
@@ -8,14 +8,17 @@
 \newlength{\cvlogowidth}
 \setlength{\cvlogowidth}{1.15cm}
 
-\newcommand{\cvsectionbefore}{1.15em}
-\newcommand{\cvsectionrulegap}{0.4em}
-\newcommand{\cvsectionafter}{0.62em}
-\newcommand{\cventryvspace}{0.85em}
-\newcommand{\cvheaderafter}{0.72em}
-\newcommand{\cvskillcategorygap}{0.48em}
-\newcommand{\cvskilltitleitems}{0.14em}
-\newcommand{\cvskillitemsafter}{0.4em}
+\newcommand{\cventryvspace}{0.82em}
+\newcommand{\cventrycompactvspace}{0.56em}
+\newcommand{\cventrylegacyvspace}{0.4em}
+\newcommand{\cvsectionbefore}{1.12em}
+\newcommand{\cvsectionrulegap}{0.38em}
+\newcommand{\cvsectionafter}{0.58em}
+\newcommand{\cvheaderafter}{0.7em}
+\newcommand{\cvskillcategorygap}{0.44em}
+\newcommand{\cvskilltitleitems}{0.12em}
+\newcommand{\cvskillitemsafter}{0.36em}
+\newcommand{\cvskillitemscontinueafter}{0.32em}
 
 % --- Header ---
 \newcommand{\cvname}[1]{%
@@ -66,8 +69,14 @@
 
 \newcommand{\cvskillitems}[1]{%
   \noindent
-  {\small\color{cvskills}\linespread{1.12}\selectfont #1\par}%
+  {\small\color{cvskills}\linespread{1.1}\selectfont #1\par}%
   \vspace{\cvskillitemsafter}%
+}
+
+\newcommand{\cvskillitemscontinue}[1]{%
+  \noindent
+  {\small\color{cvskills}\linespread{1.1}\selectfont #1\par}%
+  \vspace{\cvskillitemscontinueafter}%
 }
 
 % --- Experience / education typography ---
@@ -84,8 +93,22 @@
 }
 
 \newenvironment{cvitems}{%
-  \vspace{0.14em}%
-  \begin{itemize}[leftmargin=1.15em, itemsep=3pt, topsep=3.5pt, parsep=0pt, partopsep=0pt]%
+  \vspace{0.12em}%
+  \begin{itemize}[leftmargin=1.15em, itemsep=2.5pt, topsep=3pt, parsep=0pt, partopsep=0pt]%
+}{%
+  \end{itemize}%
+}
+
+\newenvironment{cvitemscompact}{%
+  \vspace{0.08em}%
+  \begin{itemize}[leftmargin=1.1em, itemsep=1.5pt, topsep=2pt, parsep=0pt, partopsep=0pt]%
+}{%
+  \end{itemize}%
+}
+
+\newenvironment{cvitemslegacy}{%
+  \vspace{0.05em}%
+  \begin{itemize}[leftmargin=1.05em, itemsep=1pt, topsep=1.5pt, parsep=0pt, partopsep=0pt]%
 }{%
   \end{itemize}%
 }
@@ -125,9 +148,9 @@
   \end{minipage}%
 }
 
-% --- Experience entry ---
-\newcommand{\cventry}[5]{%
-  \vspace{\cventryvspace}%
+% --- Experience entry (internal) ---
+\newcommand{\cventry@core}[6]{%
+  \vspace{#6}%
   \noindent
   \def\cv@entrylogo{#4}%
   \def\cv@logorempty{}%
@@ -154,6 +177,18 @@
     \end{tabularx}%
   \fi
   \par
+}
+
+\newcommand{\cventry}[5]{%
+  \cventry@core{#1}{#2}{#3}{#4}{#5}{\cventryvspace}%
+}
+
+\newcommand{\cventrycompact}[5]{%
+  \cventry@core{#1}{#2}{#3}{#4}{#5}{\cventrycompactvspace}%
+}
+
+\newcommand{\cventrylegacy}[5]{%
+  \cventry@core{#1}{#2}{#3}{#4}{#5}{\cventrylegacyvspace}%
 }
 
 % --- Education (optional second logo in arg 5) ---
@@ -193,4 +228,15 @@
     \endgroup
   \fi
   \par
+}
+
+% --- Community initiatives (compact editorial) ---
+\newcommand{\cvcommunityitem}[2]{%
+  \noindent
+  {\small\color{cvtext}\textbf{#1}\hspace{0.35em}{\color{cvmuted}\textemdash}\hspace{0.35em}#2\par}%
+  \vspace{0.22em}%
+}
+
+\newcommand{\cvcommunityblock}{%
+  \vspace{0.1em}%
 }
