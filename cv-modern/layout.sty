@@ -1,0 +1,31 @@
+\ProvidesPackage{layout}[2026/05/28 v0.2 Minimal CV layout]
+
+\newcommand{\cvname}[1]{%
+  {\LARGE\bfseries #1\par}%
+  \vspace{0.35em}%
+}
+
+\newcommand{\cvrole}[1]{%
+  {\normalsize #1\par}%
+  \vspace{0.25em}%
+}
+
+\newcommand{\cvcontact}[1]{%
+  {\small #1\par}%
+  \vspace{0.9em}%
+}
+
+\newcommand{\cvsection}[1]{%
+  \vspace{0.55em}%
+  {\bfseries\MakeUppercase{#1}\par}%
+  \vspace{0.35em}%
+}
+
+% #1 period | #2 title | #3 organization | #4 body (usually itemize)
+\newcommand{\cventry}[4]{%
+  \textbf{#2}\hfill{\small #1}\par
+  {\textit{#3}}\par
+  \vspace{0.15em}%
+  #4%
+  \vspace{0.45em}%
+}
