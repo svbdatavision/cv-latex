@@ -1,50 +1,47 @@
-\ProvidesPackage{layout}[2026/05/28 v0.7 Professional content and rhythm]
+\ProvidesPackage{layout}[2026/05/28 v0.8 Two-page senior AI CV layout]
 
-% --- Layout tokens ---
-\newlength{\cvperiodwidth}
-\setlength{\cvperiodwidth}{2.95cm}
+% --- Layout tokens (compact rhythm) ---
 \newlength{\cvlogocolwidth}
-\setlength{\cvlogocolwidth}{1.45cm}
+\setlength{\cvlogocolwidth}{1.4cm}
 \newlength{\cvlogowidth}
-\setlength{\cvlogowidth}{1.15cm}
+\setlength{\cvlogowidth}{1.05cm}
 
-\newcommand{\cventryvspace}{0.82em}
-\newcommand{\cventrycompactvspace}{0.56em}
-\newcommand{\cventrylegacyvspace}{0.4em}
-\newcommand{\cvsectionbefore}{1.12em}
-\newcommand{\cvsectionrulegap}{0.38em}
-\newcommand{\cvsectionafter}{0.58em}
-\newcommand{\cvheaderafter}{0.7em}
-\newcommand{\cvskillcategorygap}{0.44em}
-\newcommand{\cvskilltitleitems}{0.12em}
-\newcommand{\cvskillitemsafter}{0.36em}
-\newcommand{\cvskillitemscontinueafter}{0.32em}
+\newcommand{\cventryvspace}{0.5em}
+\newcommand{\cventrycompactvspace}{0.34em}
+\newcommand{\cventrylegacyvspace}{0.26em}
+\newcommand{\cvsectionbefore}{0.68em}
+\newcommand{\cvsectionrulegap}{0.2em}
+\newcommand{\cvsectionafter}{0.36em}
+\newcommand{\cvheaderafter}{0.45em}
+\newcommand{\cvskillcategorygap}{0.28em}
+\newcommand{\cvskilltitleitems}{0.08em}
+\newcommand{\cvskillitemsafter}{0.22em}
 
 % --- Header ---
 \newcommand{\cvname}[1]{%
-  {\fontsize{20}{24}\selectfont\bfseries #1\par}%
-  \vspace{0.4em}%
+  {\fontsize{19}{22}\selectfont\bfseries #1\par}%
+  \vspace{0.28em}%
 }
 
 \newcommand{\cvrole}[1]{%
   {\normalsize\color{cvmuted}#1\par}%
-  \vspace{0.45em}%
+  \vspace{0.3em}%
 }
 
 \newcommand{\cvhref}[2]{\href{#1}{#2}}
 
 \newcommand{\cvcontactsep}{%
-  \hspace{0.5em}{\color{cvrule}\textbar}\hspace{0.5em}%
+  \hspace{0.45em}{\color{cvrule}\textbar}\hspace{0.45em}%
 }
 
 \newcommand{\cvcontact}[1]{%
   {\small\color{cvtext}#1\par}%
-  \vspace{0.6em}%
+  \vspace{0.4em}%
   \noindent\textcolor{cvrule}{\rule{\linewidth}{0.4pt}}%
   \vspace{\cvheaderafter}%
 }
 
-% --- Sections: rule — title — rule ---
+% --- Sections ---
 \newcommand{\cvsectionrule}{%
   \noindent\textcolor{cvrule}{\rule{\linewidth}{0.4pt}}%
 }
@@ -60,28 +57,34 @@
   \vspace{\cvsectionafter}%
 }
 
-% --- Skills: editorial categories ---
+% --- Skills ---
 \newcommand{\cvskillcategory}[1]{%
   \vspace{\cvskillcategorygap}%
-  \noindent{\normalsize\bfseries\color{cvtext}#1\par}%
+  \noindent{\small\bfseries\color{cvtext}#1\par}%
   \vspace{\cvskilltitleitems}%
 }
 
+
 \newcommand{\cvskillitems}[1]{%
   \noindent
-  {\small\color{cvskills}\linespread{1.1}\selectfont #1\par}%
+  {\small\color{cvskills}\linespread{1.05}\selectfont #1\par}%
   \vspace{\cvskillitemsafter}%
 }
 
 \newcommand{\cvskillitemscontinue}[1]{%
   \noindent
-  {\small\color{cvskills}\linespread{1.1}\selectfont #1\par}%
-  \vspace{\cvskillitemscontinueafter}%
+  {\small\color{cvskills}\linespread{1.05}\selectfont #1\par}%
+  \vspace{\cvskillitemsafter}%
 }
 
-% --- Experience / education typography ---
-\newcommand{\cvperiod}[1]{%
-  {\small\bfseries\color{cvtext}#1}%
+% --- Experience typography ---
+\newcommand{\cvjobheadline}[2]{%
+  \noindent{\normalsize\bfseries #1}\hspace{0.3em}{\color{cvmuted}\textemdash}\hspace{0.3em}{\normalsize\color{cvmuted}#2\par}%
+}
+
+\newcommand{\cvperiodline}[1]{%
+  \vspace{0.06em}%
+  \noindent{\small\bfseries\color{cvperiod}#1\par}%
 }
 
 \newcommand{\cvjobtitle}[1]{%
@@ -93,84 +96,73 @@
 }
 
 \newenvironment{cvitems}{%
-  \vspace{0.12em}%
-  \begin{itemize}[leftmargin=1.15em, itemsep=2.5pt, topsep=3pt, parsep=0pt, partopsep=0pt]%
-}{%
-  \end{itemize}%
-}
-
-\newenvironment{cvitemscompact}{%
-  \vspace{0.08em}%
+  \vspace{0.06em}%
   \begin{itemize}[leftmargin=1.1em, itemsep=1.5pt, topsep=2pt, parsep=0pt, partopsep=0pt]%
 }{%
   \end{itemize}%
 }
 
-\newenvironment{cvitemslegacy}{%
-  \vspace{0.05em}%
+\newenvironment{cvitemscompact}{%
+  \vspace{0.04em}%
   \begin{itemize}[leftmargin=1.05em, itemsep=1pt, topsep=1.5pt, parsep=0pt, partopsep=0pt]%
 }{%
   \end{itemize}%
 }
 
-% --- Optional logo(s) ---
+\newenvironment{cvitemslegacy}{%
+  \vspace{0.03em}%
+  \begin{itemize}[leftmargin=1em, itemsep=0.5pt, topsep=1pt, parsep=0pt, partopsep=0pt]%
+}{%
+  \end{itemize}%
+}
+
+% --- Logos ---
 \newcommand{\cvprintlogo}[1]{%
-  \begingroup
-  \def\cv@logofile{#1}%
-  \def\cv@logorempty{}%
-  \ifx\cv@logofile\cv@logorempty
-  \else
-    \IfFileExists{assets/logos/\cv@logofile}{%
-      \raisebox{-0.08em}{\includegraphics[width=\cvlogowidth,keepaspectratio]{assets/logos/\cv@logofile}}%
-    }{}%
-  \fi
-  \endgroup
+  \IfFileExists{assets/logos/#1}{%
+    \includegraphics[width=\cvlogowidth,keepaspectratio]{assets/logos/#1}}%
+  {}%
 }
 
 \newlength{\cvlogosmallwidth}
-\setlength{\cvlogosmallwidth}{0.85cm}
+\setlength{\cvlogosmallwidth}{0.8cm}
 
 \newcommand{\cvprintlogosmall}[1]{%
   \IfFileExists{assets/logos/#1}{%
-    \raisebox{-0.06em}{\includegraphics[width=\cvlogosmallwidth,keepaspectratio]{assets/logos/#1}}%
-  }{}%
+    \includegraphics[width=\cvlogosmallwidth,keepaspectratio]{assets/logos/#1}}%
+  {}%
 }
 
 \newcommand{\cvprintlogos}[2]{%
-  \cvprintlogosmall{#1}\hspace{0.1em}\cvprintlogosmall{#2}%
+  \cvprintlogosmall{#1}\hspace{0.08em}\cvprintlogosmall{#2}%
 }
 
 \newcommand{\cvlogocell}[1]{%
   \begin{minipage}[t]{\cvlogocolwidth}%
     \raggedleft
-    \vspace{0.08em}%
+    \vspace{0.12em}%
     #1%
   \end{minipage}%
 }
 
-% --- Experience entry (internal) ---
+% --- Experience: Title — Company / Period / bullets ---
 \newcommand{\cventry@core}[6]{%
   \vspace{#6}%
   \noindent
   \def\cv@entrylogo{#4}%
   \def\cv@logorempty{}%
   \ifx\cv@entrylogo\cv@logorempty
-    \begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{\cvperiodwidth}@{}>{\raggedright\arraybackslash}X@{}}
-      \cvperiod{#1} &
+    \begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}X@{}}
       \begin{minipage}[t]{\linewidth}
-        \cvjobtitle{#2}
-        \vspace{0.08em}
-        \cvjobcompany{#3}
+        \cvjobheadline{#2}{#3}
+        \cvperiodline{#1}
         #5%
       \end{minipage} \\
     \end{tabularx}%
   \else
-    \begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{\cvperiodwidth}@{}>{\raggedright\arraybackslash}X@{}r@{}}
-      \cvperiod{#1} &
+    \begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}X@{}>{\raggedleft\arraybackslash}m{\cvlogocolwidth}@{}}
       \begin{minipage}[t]{\linewidth}
-        \cvjobtitle{#2}
-        \vspace{0.08em}
-        \cvjobcompany{#3}
+        \cvjobheadline{#2}{#3}
+        \cvperiodline{#1}
         #5%
       \end{minipage} &
       \cvlogocell{\cvprintlogo{#4}} \\
@@ -191,7 +183,7 @@
   \cventry@core{#1}{#2}{#3}{#4}{#5}{\cventrylegacyvspace}%
 }
 
-% --- Education (optional second logo in arg 5) ---
+% --- Education ---
 \newcommand{\cveducation}[5]{%
   \vspace{\cventryvspace}%
   \noindent
@@ -199,22 +191,22 @@
   \def\cv@entrylogoB{#5}%
   \def\cv@logorempty{}%
   \ifx\cv@entrylogoA\cv@logorempty
-    \begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{\cvperiodwidth}@{}>{\raggedright\arraybackslash}X@{}}
-      \cvperiod{#1} &
+    \begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}X@{}}
       \begin{minipage}[t]{\linewidth}
+        \cvperiodline{#1}
+        \vspace{0.04em}
         \cvjobtitle{#2}
-        \vspace{0.08em}
         \cvjobcompany{#3}
       \end{minipage} \\
     \end{tabularx}%
   \else
     \begingroup
-    \setlength{\cvlogocolwidth}{1.95cm}%
-    \begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{\cvperiodwidth}@{}>{\raggedright\arraybackslash}X@{}r@{}}
-      \cvperiod{#1} &
+    \setlength{\cvlogocolwidth}{1.85cm}%
+    \begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}X@{}>{\raggedleft\arraybackslash}m{\cvlogocolwidth}@{}}
       \begin{minipage}[t]{\linewidth}
+        \cvperiodline{#1}
+        \vspace{0.04em}
         \cvjobtitle{#2}
-        \vspace{0.08em}
         \cvjobcompany{#3}
       \end{minipage} &
       \cvlogocell{%
@@ -230,13 +222,21 @@
   \par
 }
 
-% --- Community initiatives (compact editorial) ---
-\newcommand{\cvcommunityitem}[2]{%
+% --- Languages ---
+\newcommand{\cvlanguage}[2]{%
   \noindent
-  {\small\color{cvtext}\textbf{#1}\hspace{0.35em}{\color{cvmuted}\textemdash}\hspace{0.35em}#2\par}%
-  \vspace{0.22em}%
+  {\small\color{cvtext}\textbf{#1}\hspace{0.3em}{\color{cvmuted}\textemdash}\hspace{0.3em}#2\par}%
+  \vspace{0.12em}%
 }
 
-\newcommand{\cvcommunityblock}{%
+\newcommand{\cvlanguagenote}[1]{%
+  \noindent
+  {\footnotesize\color{cvmuted}#1\par}%
+}
+
+% --- Community ---
+\newcommand{\cvcommunityitem}[2]{%
+  \noindent
+  {\footnotesize\color{cvtext}\textbf{#1}\hspace{0.25em}{\color{cvmuted}\textemdash}\hspace{0.25em}#2\par}%
   \vspace{0.1em}%
 }
