@@ -1,4 +1,4 @@
-\ProvidesPackage{layout}[2026/05/28 v0.5 Polish CV layout]
+\ProvidesPackage{layout}[2026/05/28 v0.5.1 Section and education fixes]
 
 % --- Layout tokens ---
 \newlength{\cvperiodwidth}
@@ -8,12 +8,12 @@
 \newlength{\cvlogowidth}
 \setlength{\cvlogowidth}{1.15cm}
 
-\newcommand{\cvsectionbefore}{1.05em}
-\newcommand{\cvsectionrulegap}{0.32em}
-\newcommand{\cvsectionafter}{0.5em}
-\newcommand{\cventryvspace}{0.72em}
-\newcommand{\cvskilllinevspace}{0.32em}
-\newcommand{\cvheaderafter}{0.65em}
+\newcommand{\cvsectionbefore}{1.0em}
+\newcommand{\cvsectionrulegap}{0.34em}
+\newcommand{\cvsectionafter}{0.48em}
+\newcommand{\cventryvspace}{0.65em}
+\newcommand{\cvskilllinevspace}{0.3em}
+\newcommand{\cvheaderafter}{0.58em}
 
 % --- Header ---
 \newcommand{\cvname}[1]{%
@@ -35,22 +35,23 @@
 \newcommand{\cvcontact}[1]{%
   {\small\color{cvtext}#1\par}%
   \vspace{0.55em}%
-  \noindent{\color{cvrule}\rule{\textwidth}{0.4pt}}%
+  \noindent\textcolor{cvrule}{\rule{\linewidth}{0.4pt}}%
   \vspace{\cvheaderafter}%
 }
 
-% --- Sections: rule — title — rule ---
+% --- Sections: rule — title — rule (left-aligned, no overlap) ---
 \newcommand{\cvsectionrule}{%
-  \noindent{\color{cvrule}\rule{\textwidth}{0.4pt}}%
+  \noindent\textcolor{cvrule}{\rule{\linewidth}{0.4pt}}%
 }
 
 \newcommand{\cvsection}[1]{%
   \vspace{\cvsectionbefore}%
-  \cvsectionrule
+  \cvsectionrule\par
   \vspace{\cvsectionrulegap}%
-  {\normalsize\bfseries\MakeUppercase{#1}\par}%
+  \noindent{\normalsize\bfseries\MakeUppercase{#1}}%
+  \par
   \vspace{\cvsectionrulegap}%
-  \cvsectionrule
+  \cvsectionrule\par
   \vspace{\cvsectionafter}%
 }
 
@@ -79,13 +80,13 @@
 }
 
 \newenvironment{cvitems}{%
-  \vspace{0.12em}%
-  \begin{itemize}[leftmargin=1.15em, itemsep=2.5pt, topsep=3pt, parsep=0pt, partopsep=0pt]%
+  \vspace{0.1em}%
+  \begin{itemize}[leftmargin=1.15em, itemsep=2pt, topsep=2.5pt, parsep=0pt, partopsep=0pt]%
 }{%
   \end{itemize}%
 }
 
-% --- Optional logo ---
+% --- Optional logo(s) ---
 \newcommand{\cvprintlogo}[1]{%
   \begingroup
   \def\cv@logofile{#1}%
@@ -97,6 +98,19 @@
     }{}%
   \fi
   \endgroup
+}
+
+\newlength{\cvlogosmallwidth}
+\setlength{\cvlogosmallwidth}{0.85cm}
+
+\newcommand{\cvprintlogosmall}[1]{%
+  \IfFileExists{assets/logos/#1}{%
+    \raisebox{-0.06em}{\includegraphics[width=\cvlogosmallwidth,keepaspectratio]{assets/logos/#1}}%
+  }{}%
+}
+
+\newcommand{\cvprintlogos}[2]{%
+  \cvprintlogosmall{#1}\hspace{0.1em}\cvprintlogosmall{#2}%
 }
 
 % --- Experience entry ---
@@ -130,13 +144,14 @@
   \par
 }
 
-% --- Education ---
-\newcommand{\cveducation}[4]{%
+% --- Education (optional second logo in arg 5) ---
+\newcommand{\cveducation}[5]{%
   \vspace{\cventryvspace}%
   \noindent
-  \def\cv@entrylogo{#4}%
+  \def\cv@entrylogoA{#4}%
+  \def\cv@entrylogoB{#5}%
   \def\cv@logorempty{}%
-  \ifx\cv@entrylogo\cv@logorempty
+  \ifx\cv@entrylogoA\cv@logorempty
     \begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{\cvperiodwidth}@{}>{\raggedright\arraybackslash}X@{}}
       \cvperiod{#1} &
       \begin{minipage}[t]{\linewidth}
@@ -146,6 +161,8 @@
       \end{minipage} \\
     \end{tabularx}%
   \else
+    \begingroup
+    \setlength{\cvlogocolwidth}{1.95cm}%
     \begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{\cvperiodwidth}@{}>{\raggedright\arraybackslash}X@{}>{\raggedleft\arraybackslash}p{\cvlogocolwidth}@{}}
       \cvperiod{#1} &
       \begin{minipage}[t]{\linewidth}
@@ -153,8 +170,14 @@
         \vspace{0.06em}
         \cvjobcompany{#3}
       \end{minipage} &
-      \raisebox{0.2em}{\cvprintlogo{#4}} \\
+      \ifx\cv@entrylogoB\cv@logorempty
+        \raisebox{0.2em}{\cvprintlogo{#4}}%
+      \else
+        \raisebox{0.2em}{\cvprintlogos{#4}{#5}}%
+      \fi
+      \\
     \end{tabularx}%
+    \endgroup
   \fi
   \par
 }
