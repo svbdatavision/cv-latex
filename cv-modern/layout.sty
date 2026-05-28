@@ -1,66 +1,73 @@
-\ProvidesPackage{layout}[2026/05/28 v0.4 Refined CV layout]
+\ProvidesPackage{layout}[2026/05/28 v0.5 Polish CV layout]
 
 % --- Layout tokens ---
 \newlength{\cvperiodwidth}
-\setlength{\cvperiodwidth}{2.85cm}
+\setlength{\cvperiodwidth}{2.95cm}
 \newlength{\cvlogocolwidth}
-\setlength{\cvlogocolwidth}{1.5cm}
+\setlength{\cvlogocolwidth}{1.45cm}
 \newlength{\cvlogowidth}
-\setlength{\cvlogowidth}{1.25cm}
+\setlength{\cvlogowidth}{1.15cm}
 
-\newcommand{\cvsectionvspace}{0.9em}
-\newcommand{\cvsectionrulevspace}{0.28em}
-\newcommand{\cvsectionaftervspace}{0.45em}
-\newcommand{\cventryvspace}{0.55em}
-\newcommand{\cvskilllinevspace}{0.28em}
+\newcommand{\cvsectionbefore}{1.05em}
+\newcommand{\cvsectionrulegap}{0.32em}
+\newcommand{\cvsectionafter}{0.5em}
+\newcommand{\cventryvspace}{0.72em}
+\newcommand{\cvskilllinevspace}{0.32em}
+\newcommand{\cvheaderafter}{0.65em}
 
 % --- Header ---
 \newcommand{\cvname}[1]{%
-  {\fontsize{19}{22}\selectfont\bfseries #1\par}%
-  \vspace{0.3em}%
+  {\fontsize{20}{24}\selectfont\bfseries #1\par}%
+  \vspace{0.35em}%
 }
 
 \newcommand{\cvrole}[1]{%
-  {\large\color{cvmuted}#1\par}%
-  \vspace{0.35em}%
+  {\normalsize\color{cvmuted}#1\par}%
+  \vspace{0.4em}%
 }
 
 \newcommand{\cvhref}[2]{\href{#1}{#2}}
 
 \newcommand{\cvcontactsep}{%
-  \hspace{0.45em}{\color{cvrule}\textbar}\hspace{0.45em}%
+  \hspace{0.5em}{\color{cvrule}\textbar}\hspace{0.5em}%
 }
 
 \newcommand{\cvcontact}[1]{%
-  {\small #1\par}%
-  \vspace{0.5em}%
-  \noindent{\color{cvrule}\rule{\textwidth}{0.5pt}}%
+  {\small\color{cvtext}#1\par}%
   \vspace{0.55em}%
+  \noindent{\color{cvrule}\rule{\textwidth}{0.4pt}}%
+  \vspace{\cvheaderafter}%
 }
 
-% --- Sections: uppercase + subtle rule ---
+% --- Sections: rule — title — rule ---
+\newcommand{\cvsectionrule}{%
+  \noindent{\color{cvrule}\rule{\textwidth}{0.4pt}}%
+}
+
 \newcommand{\cvsection}[1]{%
-  \vspace{\cvsectionvspace}%
-  {\bfseries\MakeUppercase{#1}\par}%
-  \vspace{\cvsectionrulevspace}%
-  \noindent{\color{cvrule}\rule{\textwidth}{0.5pt}}%
-  \vspace{\cvsectionaftervspace}%
+  \vspace{\cvsectionbefore}%
+  \cvsectionrule
+  \vspace{\cvsectionrulegap}%
+  {\normalsize\bfseries\MakeUppercase{#1}\par}%
+  \vspace{\cvsectionrulegap}%
+  \cvsectionrule
+  \vspace{\cvsectionafter}%
 }
 
-% --- Skills: horizontal bullet chips (no tabularx) ---
+% --- Skills: inline bullets, natural wraps ---
 \newcommand{\cvbullet}[1]{%
-  \textbullet\hspace{0.28em}#1\hspace{0.55em}%
+  \textbullet\hspace{0.32em}#1\hspace{0.62em}%
 }
 
 \newcommand{\cvskillline}[1]{%
   \noindent
-  {\small #1\par}%
+  {\small\color{cvtext}#1\par}%
   \vspace{\cvskilllinevspace}%
 }
 
 % --- Experience / education typography ---
 \newcommand{\cvperiod}[1]{%
-  {\small\bfseries #1}%
+  {\small\bfseries\color{cvtext}#1}%
 }
 
 \newcommand{\cvjobtitle}[1]{%
@@ -68,12 +75,12 @@
 }
 
 \newcommand{\cvjobcompany}[1]{%
-  {\small\itshape\color{cvmuted}#1\par}%
+  {\small\color{cvmuted}#1\par}%
 }
 
 \newenvironment{cvitems}{%
-  \vspace{0.1em}%
-  \begin{itemize}[leftmargin=1.1em, itemsep=1.5pt, topsep=2pt, parsep=0pt, partopsep=0pt]%
+  \vspace{0.12em}%
+  \begin{itemize}[leftmargin=1.15em, itemsep=2.5pt, topsep=3pt, parsep=0pt, partopsep=0pt]%
 }{%
   \end{itemize}%
 }
@@ -86,7 +93,7 @@
   \ifx\cv@logofile\cv@logorempty
   \else
     \IfFileExists{assets/logos/\cv@logofile}{%
-      \raisebox{-0.05em}{\includegraphics[width=\cvlogowidth,keepaspectratio]{assets/logos/\cv@logofile}}%
+      \raisebox{-0.08em}{\includegraphics[width=\cvlogowidth,keepaspectratio]{assets/logos/\cv@logofile}}%
     }{}%
   \fi
   \endgroup
@@ -103,7 +110,7 @@
       \cvperiod{#1} &
       \begin{minipage}[t]{\linewidth}
         \cvjobtitle{#2}
-        \vspace{0.04em}
+        \vspace{0.06em}
         \cvjobcompany{#3}
         #5%
       \end{minipage} \\
@@ -113,11 +120,11 @@
       \cvperiod{#1} &
       \begin{minipage}[t]{\linewidth}
         \cvjobtitle{#2}
-        \vspace{0.04em}
+        \vspace{0.06em}
         \cvjobcompany{#3}
         #5%
       \end{minipage} &
-      \raisebox{0.15em}{\cvprintlogo{#4}} \\
+      \raisebox{0.2em}{\cvprintlogo{#4}} \\
     \end{tabularx}%
   \fi
   \par
@@ -132,17 +139,21 @@
   \ifx\cv@entrylogo\cv@logorempty
     \begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{\cvperiodwidth}@{}>{\raggedright\arraybackslash}X@{}}
       \cvperiod{#1} &
-      \cvjobtitle{#2}
-      \vspace{0.04em}
-      \cvjobcompany{#3} \\
+      \begin{minipage}[t]{\linewidth}
+        \cvjobtitle{#2}
+        \vspace{0.06em}
+        \cvjobcompany{#3}
+      \end{minipage} \\
     \end{tabularx}%
   \else
     \begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{\cvperiodwidth}@{}>{\raggedright\arraybackslash}X@{}>{\raggedleft\arraybackslash}p{\cvlogocolwidth}@{}}
       \cvperiod{#1} &
-      \cvjobtitle{#2}
-      \vspace{0.04em}
-      \cvjobcompany{#3} &
-      \raisebox{0.15em}{\cvprintlogo{#4}} \\
+      \begin{minipage}[t]{\linewidth}
+        \cvjobtitle{#2}
+        \vspace{0.06em}
+        \cvjobcompany{#3}
+      \end{minipage} &
+      \raisebox{0.2em}{\cvprintlogo{#4}} \\
     \end{tabularx}%
   \fi
   \par
