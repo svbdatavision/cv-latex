@@ -1,4 +1,4 @@
-\ProvidesPackage{layout}[2026/05/28 v0.5.1 Section and education fixes]
+\ProvidesPackage{layout}[2026/05/28 v0.6 Skills hierarchy and visual rhythm]
 
 % --- Layout tokens ---
 \newlength{\cvperiodwidth}
@@ -8,22 +8,24 @@
 \newlength{\cvlogowidth}
 \setlength{\cvlogowidth}{1.15cm}
 
-\newcommand{\cvsectionbefore}{1.0em}
-\newcommand{\cvsectionrulegap}{0.34em}
-\newcommand{\cvsectionafter}{0.48em}
-\newcommand{\cventryvspace}{0.65em}
-\newcommand{\cvskilllinevspace}{0.3em}
-\newcommand{\cvheaderafter}{0.58em}
+\newcommand{\cvsectionbefore}{1.15em}
+\newcommand{\cvsectionrulegap}{0.4em}
+\newcommand{\cvsectionafter}{0.62em}
+\newcommand{\cventryvspace}{0.85em}
+\newcommand{\cvheaderafter}{0.72em}
+\newcommand{\cvskillcategorygap}{0.48em}
+\newcommand{\cvskilltitleitems}{0.14em}
+\newcommand{\cvskillitemsafter}{0.4em}
 
 % --- Header ---
 \newcommand{\cvname}[1]{%
   {\fontsize{20}{24}\selectfont\bfseries #1\par}%
-  \vspace{0.35em}%
+  \vspace{0.4em}%
 }
 
 \newcommand{\cvrole}[1]{%
   {\normalsize\color{cvmuted}#1\par}%
-  \vspace{0.4em}%
+  \vspace{0.45em}%
 }
 
 \newcommand{\cvhref}[2]{\href{#1}{#2}}
@@ -34,12 +36,12 @@
 
 \newcommand{\cvcontact}[1]{%
   {\small\color{cvtext}#1\par}%
-  \vspace{0.55em}%
+  \vspace{0.6em}%
   \noindent\textcolor{cvrule}{\rule{\linewidth}{0.4pt}}%
   \vspace{\cvheaderafter}%
 }
 
-% --- Sections: rule — title — rule (left-aligned, no overlap) ---
+% --- Sections: rule — title — rule ---
 \newcommand{\cvsectionrule}{%
   \noindent\textcolor{cvrule}{\rule{\linewidth}{0.4pt}}%
 }
@@ -55,15 +57,17 @@
   \vspace{\cvsectionafter}%
 }
 
-% --- Skills: inline bullets, natural wraps ---
-\newcommand{\cvbullet}[1]{%
-  \textbullet\hspace{0.32em}#1\hspace{0.62em}%
+% --- Skills: editorial categories ---
+\newcommand{\cvskillcategory}[1]{%
+  \vspace{\cvskillcategorygap}%
+  \noindent{\normalsize\bfseries\color{cvtext}#1\par}%
+  \vspace{\cvskilltitleitems}%
 }
 
-\newcommand{\cvskillline}[1]{%
+\newcommand{\cvskillitems}[1]{%
   \noindent
-  {\small\color{cvtext}#1\par}%
-  \vspace{\cvskilllinevspace}%
+  {\small\color{cvskills}\linespread{1.12}\selectfont #1\par}%
+  \vspace{\cvskillitemsafter}%
 }
 
 % --- Experience / education typography ---
@@ -80,8 +84,8 @@
 }
 
 \newenvironment{cvitems}{%
-  \vspace{0.1em}%
-  \begin{itemize}[leftmargin=1.15em, itemsep=2pt, topsep=2.5pt, parsep=0pt, partopsep=0pt]%
+  \vspace{0.14em}%
+  \begin{itemize}[leftmargin=1.15em, itemsep=3pt, topsep=3.5pt, parsep=0pt, partopsep=0pt]%
 }{%
   \end{itemize}%
 }
@@ -113,6 +117,14 @@
   \cvprintlogosmall{#1}\hspace{0.1em}\cvprintlogosmall{#2}%
 }
 
+\newcommand{\cvlogocell}[1]{%
+  \begin{minipage}[t]{\cvlogocolwidth}%
+    \raggedleft
+    \vspace{0.08em}%
+    #1%
+  \end{minipage}%
+}
+
 % --- Experience entry ---
 \newcommand{\cventry}[5]{%
   \vspace{\cventryvspace}%
@@ -124,21 +136,21 @@
       \cvperiod{#1} &
       \begin{minipage}[t]{\linewidth}
         \cvjobtitle{#2}
-        \vspace{0.06em}
+        \vspace{0.08em}
         \cvjobcompany{#3}
         #5%
       \end{minipage} \\
     \end{tabularx}%
   \else
-    \begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{\cvperiodwidth}@{}>{\raggedright\arraybackslash}X@{}>{\raggedleft\arraybackslash}p{\cvlogocolwidth}@{}}
+    \begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{\cvperiodwidth}@{}>{\raggedright\arraybackslash}X@{}r@{}}
       \cvperiod{#1} &
       \begin{minipage}[t]{\linewidth}
         \cvjobtitle{#2}
-        \vspace{0.06em}
+        \vspace{0.08em}
         \cvjobcompany{#3}
         #5%
       \end{minipage} &
-      \raisebox{0.2em}{\cvprintlogo{#4}} \\
+      \cvlogocell{\cvprintlogo{#4}} \\
     \end{tabularx}%
   \fi
   \par
@@ -156,26 +168,27 @@
       \cvperiod{#1} &
       \begin{minipage}[t]{\linewidth}
         \cvjobtitle{#2}
-        \vspace{0.06em}
+        \vspace{0.08em}
         \cvjobcompany{#3}
       \end{minipage} \\
     \end{tabularx}%
   \else
     \begingroup
     \setlength{\cvlogocolwidth}{1.95cm}%
-    \begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{\cvperiodwidth}@{}>{\raggedright\arraybackslash}X@{}>{\raggedleft\arraybackslash}p{\cvlogocolwidth}@{}}
+    \begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{\cvperiodwidth}@{}>{\raggedright\arraybackslash}X@{}r@{}}
       \cvperiod{#1} &
       \begin{minipage}[t]{\linewidth}
         \cvjobtitle{#2}
-        \vspace{0.06em}
+        \vspace{0.08em}
         \cvjobcompany{#3}
       \end{minipage} &
-      \ifx\cv@entrylogoB\cv@logorempty
-        \raisebox{0.2em}{\cvprintlogo{#4}}%
-      \else
-        \raisebox{0.2em}{\cvprintlogos{#4}{#5}}%
-      \fi
-      \\
+      \cvlogocell{%
+        \ifx\cv@entrylogoB\cv@logorempty
+          \cvprintlogo{#4}%
+        \else
+          \cvprintlogos{#4}{#5}%
+        \fi
+      } \\
     \end{tabularx}%
     \endgroup
   \fi
