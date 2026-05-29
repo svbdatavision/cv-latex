@@ -1,4 +1,4 @@
-\ProvidesPackage{layout}[2026/05/28 v0.9 Final section spacing polish]
+\ProvidesPackage{layout}[2026/05/29 v1.0 Final senior polish]
 
 % --- Layout tokens ---
 \newlength{\cvlogocolwidth}
@@ -6,26 +6,25 @@
 \newlength{\cvlogowidth}
 \setlength{\cvlogowidth}{1.05cm}
 
-% Primary sections (Experience, Skills)
-\newcommand{\cvsectionbefore}{0.62em}
-\newcommand{\cvsectionrulegap}{0.18em}
-\newcommand{\cvsectionafter}{0.34em}
-\newcommand{\cvsectionskillsafter}{0.28em}
+% Section rhythm: more space above title, less below header
+\newcommand{\cvsectionbefore}{0.78em}
+\newcommand{\cvsectiontitlerulegap}{0.1em}
+\newcommand{\cvsectioncontentafter}{0.22em}
+\newcommand{\cvsectionskillscontentafter}{0.2em}
 
 % Compact sections (Education, Languages, Community)
-\newcommand{\cvsectioncompactbefore}{0.28em}
-\newcommand{\cvsectioncompactgap}{0.12em}
-\newcommand{\cvsectioncompactafter}{0.14em}
+\newcommand{\cvsectioncompactbefore}{0.2em}
+\newcommand{\cvsectioncompactcontentafter}{0.08em}
 
 % Experience rhythm
-\newcommand{\cventryvspace}{0.5em}
-\newcommand{\cventrycompactvspace}{0.34em}
-\newcommand{\cventrylegacyvspace}{0.26em}
+\newcommand{\cventryvspace}{0.42em}
+\newcommand{\cventrycompactvspace}{0.28em}
+\newcommand{\cventrylegacyvspace}{0.2em}
 
-\newcommand{\cvheaderafter}{0.42em}
-\newcommand{\cvskillcategorygap}{0.24em}
-\newcommand{\cvskilltitleitems}{0.06em}
-\newcommand{\cvskillitemsafter}{0.18em}
+\newcommand{\cvheaderafter}{0.38em}
+\newcommand{\cvskillcategorygap}{0.2em}
+\newcommand{\cvskilltitleitems}{0.05em}
+\newcommand{\cvskillitemsafter}{0.15em}
 
 % --- Header ---
 \newcommand{\cvname}[1]{%
@@ -56,37 +55,34 @@
   \noindent\textcolor{cvrule}{\rule{\linewidth}{0.4pt}}%
 }
 
-\newcommand{\cvsection}[1]{%
+\newcommand{\cvsection@head}[2]{%
   \vspace{\cvsectionbefore}%
   \cvsectionrule\par
-  \vspace{\cvsectionrulegap}%
+  \vspace{\cvsectiontitlerulegap}%
   \noindent{\normalsize\bfseries\MakeUppercase{#1}}%
   \par
-  \vspace{\cvsectionrulegap}%
+  \vspace{\cvsectiontitlerulegap}%
   \cvsectionrule\par
-  \vspace{\cvsectionafter}%
+  \vspace{#2}%
+}
+
+\newcommand{\cvsection}[1]{%
+  \cvsection@head{#1}{\cvsectioncontentafter}%
 }
 
 \newcommand{\cvsectionskills}[1]{%
-  \vspace{\cvsectionbefore}%
-  \cvsectionrule\par
-  \vspace{\cvsectionrulegap}%
-  \noindent{\normalsize\bfseries\MakeUppercase{#1}}%
-  \par
-  \vspace{\cvsectionrulegap}%
-  \cvsectionrule\par
-  \vspace{\cvsectionskillsafter}%
+  \cvsection@head{#1}{\cvsectionskillscontentafter}%
 }
 
 \newcommand{\cvsectioncompact}[1]{%
   \vspace{\cvsectioncompactbefore}%
   \cvsectionrule\par
-  \vspace{\cvsectioncompactgap}%
+  \vspace{\cvsectiontitlerulegap}%
   \noindent{\normalsize\bfseries\MakeUppercase{#1}}%
   \par
-  \vspace{\cvsectioncompactgap}%
+  \vspace{\cvsectiontitlerulegap}%
   \cvsectionrule\par
-  \vspace{\cvsectioncompactafter}%
+  \vspace{\cvsectioncompactcontentafter}%
 }
 
 % --- Skills ---
