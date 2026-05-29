@@ -106,8 +106,18 @@
 }
 
 % --- Experience typography ---
-\newcommand{\cvjobheadline}[2]{%
-  \noindent{\normalsize\bfseries #1}\hspace{0.3em}{\color{cvmuted}\textemdash}\hspace{0.3em}{\normalsize\color{cvmuted}#2}\par
+\newcommand{\cvjobheadline}[3]{%
+  \noindent{\normalsize\bfseries #1}%
+  \hspace{0.3em}{\color{cvmuted}\textemdash}\hspace{0.3em}%
+  {\normalsize\color{cvmuted}#2}%
+  \def\cv@roletype{#3}%
+  \def\cv@roletypeempty{}%
+  \ifx\cv@roletype\cv@roletypeempty
+  \else
+    \hspace{0.32em}{\color{cvroletype}\textperiodcentered}\hspace{0.32em}%
+    {\small\color{cvroletype}#3}%
+  \fi
+  \par
 }
 
 \newcommand{\cvperiodline}[1]{%
@@ -172,42 +182,42 @@
 }
 
 % --- Experience ---
-\newcommand{\cventry@core}[6]{%
-  \vspace{#6}%
+\newcommand{\cventry@core}[7]{%
+  \vspace{#7}%
   \noindent
-  \def\cv@entrylogo{#4}%
+  \def\cv@entrylogo{#5}%
   \def\cv@logorempty{}%
   \ifx\cv@entrylogo\cv@logorempty
     \begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}X@{}}
       \begin{minipage}[t]{\linewidth}
-        \cvjobheadline{#2}{#3}
+        \cvjobheadline{#2}{#3}{#4}
         \cvperiodline{#1}
-        #5%
+        #6%
       \end{minipage} \\
     \end{tabularx}%
   \else
     \begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}X@{}>{\raggedleft\arraybackslash}m{\cvlogocolwidth}@{}}
       \begin{minipage}[t]{\linewidth}
-        \cvjobheadline{#2}{#3}
+        \cvjobheadline{#2}{#3}{#4}
         \cvperiodline{#1}
-        #5%
+        #6%
       \end{minipage} &
-      \cvlogocell{\cvprintlogo{#4}} \\
+      \cvlogocell{\cvprintlogo{#5}} \\
     \end{tabularx}%
   \fi
   \par
 }
 
-\newcommand{\cventry}[5]{%
-  \cventry@core{#1}{#2}{#3}{#4}{#5}{\cventryvspace}%
+\newcommand{\cventry}[6]{%
+  \cventry@core{#1}{#2}{#3}{#4}{#5}{#6}{\cventryvspace}%
 }
 
-\newcommand{\cventrycompact}[5]{%
-  \cventry@core{#1}{#2}{#3}{#4}{#5}{\cventrycompactvspace}%
+\newcommand{\cventrycompact}[6]{%
+  \cventry@core{#1}{#2}{#3}{#4}{#5}{#6}{\cventrycompactvspace}%
 }
 
-\newcommand{\cventrylegacy}[5]{%
-  \cventry@core{#1}{#2}{#3}{#4}{#5}{\cventrylegacyvspace}%
+\newcommand{\cventrylegacy}[6]{%
+  \cventry@core{#1}{#2}{#3}{#4}{#5}{#6}{\cventrylegacyvspace}%
 }
 
 % --- Education (single-line compact) ---
