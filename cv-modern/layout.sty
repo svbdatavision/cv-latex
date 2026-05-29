@@ -7,14 +7,14 @@
 \setlength{\cvlogowidth}{1.05cm}
 
 % Section header block: air above unit, tight inside, minimal gap to content
-\newcommand{\cvsectionbefore}{0.92em}
-\newcommand{\cvsectionblockinner}{0.05em}
+\newcommand{\cvsectionbefore}{1.25em}
+\newcommand{\cvsectionblockinner}{0.01em}
 \newcommand{\cvsectioncontentafter}{0.12em}
 \newcommand{\cvsectionskillscontentafter}{0.12em}
 
 % Compact sections (Education, Languages, Community)
-\newcommand{\cvsectioncompactbefore}{0.16em}
-\newcommand{\cvsectioncompactcontentafter}{0.06em}
+\newcommand{\cvsectioncompactbefore}{1.1em}
+\newcommand{\cvsectioncompactcontentafter}{0.02em}
 
 % Experience rhythm (light global tighten)
 \newcommand{\cventryvspace}{0.4em}
@@ -59,12 +59,11 @@
   \begingroup
   \setlength{\parskip}{0pt}%
   \setlength{\parindent}{0pt}%
-  \cvsectionrule\par
-  \vspace{\cvsectionblockinner}%
-  \noindent{\normalsize\bfseries\MakeUppercase{#1}}%
-  \par
-  \vspace{\cvsectionblockinner}%
-  \cvsectionrule\par
+  \noindent\textcolor{cvrule}{\rule{\linewidth}{0.4pt}}
+  \vspace{0.03em}
+  \noindent{\normalsize\bfseries\MakeUppercase{#1}\par}
+  \vspace{-0.2em}
+  \noindent\textcolor{cvrule}{\rule{\linewidth}{0.4pt}}
   \endgroup
 }
 
@@ -83,9 +82,11 @@
 }
 
 \newcommand{\cvsectioncompact}[1]{%
-  \vspace{\cvsectioncompactbefore}%
+  \par\medskip
+  \noindent
+  \vspace*{\cvsectioncompactbefore}%
   \cvsectionblock@draw{#1}%
-  \vspace{\cvsectioncompactcontentafter}%
+  \vspace*{\cvsectioncompactcontentafter}%
 }
 
 % --- Skills ---
