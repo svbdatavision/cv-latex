@@ -18,12 +18,13 @@ CONTENT := \
 	content/55-community.tex
 
 LOGOS := $(wildcard assets/logos/*)
+PHOTO := ../images/CV_photo.png
 
 .PHONY: all clean distclean
 
 all: $(PDF)
 
-$(PDF): main.en.tex preamble.tex layout.sty $(CONTENT) $(LOGOS)
+$(PDF): main.en.tex preamble.tex layout.sty $(CONTENT) $(LOGOS) $(PHOTO)
 	@mkdir -p "$(OUTDIR)"
 	$(TEX) $(TEXFLAGS) -output-directory="$(OUTDIR)" -jobname="$(JOBNAME)" "$(MAIN).tex"
 

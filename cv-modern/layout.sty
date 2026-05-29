@@ -21,6 +21,16 @@
 \newcommand{\cventrylegacyvspace}{0.18em}
 
 \newcommand{\cvheaderafter}{0.38em}
+
+% Profile photo (source: repo images/CV_photo.png)
+\newlength{\cvphotocolwidth}
+\setlength{\cvphotocolwidth}{2.85cm}
+\newlength{\cvphotowidth}
+\setlength{\cvphotowidth}{2.65cm}
+
+\newcommand{\cvprintphoto}{%
+  \includegraphics[width=\cvphotowidth,keepaspectratio]{CV_photo}%
+}
 \newcommand{\cvskillcategorygap}{0.2em}
 \newcommand{\cvskilltitleitems}{0.05em}
 \newcommand{\cvskillitemsafter}{0.15em}
@@ -200,6 +210,7 @@
       \cvlogocell{\cvprintlogo{#5}} \\
     \end{tabularx}%
   \fi
+  \par\vspace{0.6em}%
 }
 
 \newcommand{\cventry}[6]{%
