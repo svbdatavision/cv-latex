@@ -1,17 +1,20 @@
 \cvsectioncompact{Iniciativas comunitarias}
 
 \begingroup
-\setlength{\cvlogocolwidth}{1.4cm}%
+\setlength{\cvlogocolwidth}{1.15cm}%
 \noindent
 \begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}X@{}>{\raggedleft\arraybackslash}m{\cvlogocolwidth}@{}}
-  {\footnotesize\color{cvtext}\textbf{Prendiendo Empatía}\hspace{0.2em}{\color{cvmuted}\textemdash}\hspace{0.2em}Iniciativas de coordinación social y apoyo operativo.} &
-  \cvlogocellcompact{\cvprintlogo{prendiendo_empatia_logo.png}} \\
+  \begin{minipage}[t]{\linewidth}
+    {\footnotesize\color{cvtext}\textbf{Prendiendo Empatía}\hspace{0.2em}{\color{cvmuted}\textemdash}\hspace{0.2em}Iniciativas de coordinación social y apoyo operativo.\par}
+    \vspace{0.06em}%
+    {\footnotesize\color{cvtext}\textbf{Ciclo de Arte Mestiza}\hspace{0.2em}{\color{cvmuted}\textemdash}\hspace{0.2em}Alianzas culturales y coordinación financiera.\par}
+  \end{minipage} &
+  \cvlogocellcompact{%
+    \IfFileExists{assets/logos/prendiendo_empatia_logo.png}{%
+      \includegraphics[width=0.53cm,keepaspectratio]{assets/logos/prendiendo_empatia_logo.png}}{}%
+    \hspace{0.12em}%
+    \IfFileExists{assets/logos/logo_mestiza.png}{%
+      \includegraphics[width=0.53cm,keepaspectratio]{assets/logos/logo_mestiza.png}}{}%
+  } \\
 \end{tabularx}
-\vspace{0.06em}%
-\noindent
-\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}X@{}>{\raggedleft\arraybackslash}m{\cvlogocolwidth}@{}}
-  {\footnotesize\color{cvtext}\textbf{Ciclo de Arte Mestiza}\hspace{0.2em}{\color{cvmuted}\textemdash}\hspace{0.2em}Alianzas culturales y coordinación financiera.} &
-  \cvlogocellcompact{\cvprintlogo{logo_mestiza.png}} \\
-\end{tabularx}
-\vspace{0.06em}%
 \endgroup
