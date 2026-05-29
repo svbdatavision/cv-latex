@@ -1,38 +1,49 @@
-# Minimal build for cv-modern (English scaffold only).
-
-MAIN := main.en
-JOBNAME := CV_Sebastian_AI_EN
-OUTDIR := build/en
-PDF := $(OUTDIR)/$(JOBNAME).pdf
+# Bilingual build for cv-modern (shared layout; language-specific content).
 
 TEX := pdflatex
 TEXFLAGS := -interaction=nonstopmode -halt-on-error
 
-CONTENT := \
-	content/00-header.tex \
-	content/10-summary.tex \
-	content/20-skills.tex \
-	content/30-experience.tex \
-	content/40-education.tex \
-	content/50-languages.tex \
-	content/55-community.tex
+CONTENT_BASENAMES := \
+	00-header.tex \
+	10-summary.tex \
+	20-skills.tex \
+	30-experience.tex \
+	40-education.tex \
+	50-languages.tex \
+	55-community.tex
+
+EN_CONTENT := $(addprefix content/en/,$(CONTENT_BASENAMES))
+ES_CONTENT := $(addprefix content/es/,$(CONTENT_BASENAMES))
 
 LOGOS := $(wildcard assets/logos/*)
 PHOTO := ../images/CV_photo.png
 
-.PHONY: all clean distclean
+SHARED_DEPS := preamble.tex layout.sty $(LOGOS) $(PHOTO)
 
-all: $(PDF)
+PDF_EN := build/en/CV_Sebastian_AI_EN.pdf
+PDF_ES := build/es/CV_Sebastian_AI_ES.pdf
 
-$(PDF): main.en.tex preamble.tex layout.sty $(CONTENT) $(LOGOS) $(PHOTO)
-	@mkdir -p "$(OUTDIR)"
-	$(TEX) $(TEXFLAGS) -output-directory="$(OUTDIR)" -jobname="$(JOBNAME)" "$(MAIN).tex"
+.PHONY: all en es clean distclean
+
+all: en es
+
+en: $(PDF_EN)
+
+es: $(PDF_ES)
+
+$(PDF_EN): main.en.tex $(SHARED_DEPS) $(EN_CONTENT)
+	@mkdir -p build/en
+	$(TEX) $(TEXFLAGS) -output-directory=build/en -jobname=CV_Sebastian_AI_EN main.en.tex
+
+$(PDF_ES): main.es.tex $(SHARED_DEPS) $(ES_CONTENT)
+	@mkdir -p build/es
+	$(TEX) $(TEXFLAGS) -output-directory=build/es -jobname=CV_Sebastian_AI_ES main.es.tex
 
 clean:
-	rm -f "$(OUTDIR)/$(JOBNAME).pdf" \
-		"$(OUTDIR)/$(JOBNAME).aux" \
-		"$(OUTDIR)/$(JOBNAME).log" \
-		"$(OUTDIR)/$(JOBNAME).out"
+	rm -f build/en/CV_Sebastian_AI_EN.pdf build/en/CV_Sebastian_AI_EN.aux \
+		build/en/CV_Sebastian_AI_EN.log build/en/CV_Sebastian_AI_EN.out
+	rm -f build/es/CV_Sebastian_AI_ES.pdf build/es/CV_Sebastian_AI_ES.aux \
+		build/es/CV_Sebastian_AI_ES.log build/es/CV_Sebastian_AI_ES.out
 
 distclean:
 	rm -rf build
