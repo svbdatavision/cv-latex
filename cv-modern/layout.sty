@@ -1,4 +1,4 @@
-\ProvidesPackage{layout}[2026/05/29 v1.0 Final senior polish]
+\ProvidesPackage{layout}[2026/05/29 v1.1 Editorial section header block]
 
 % --- Layout tokens ---
 \newlength{\cvlogocolwidth}
@@ -6,20 +6,20 @@
 \newlength{\cvlogowidth}
 \setlength{\cvlogowidth}{1.05cm}
 
-% Section rhythm: more space above title, less below header
-\newcommand{\cvsectionbefore}{0.78em}
-\newcommand{\cvsectiontitlerulegap}{0.1em}
-\newcommand{\cvsectioncontentafter}{0.22em}
-\newcommand{\cvsectionskillscontentafter}{0.2em}
+% Section header block: air above unit, tight inside, minimal gap to content
+\newcommand{\cvsectionbefore}{0.92em}
+\newcommand{\cvsectionblockinner}{0.05em}
+\newcommand{\cvsectioncontentafter}{0.12em}
+\newcommand{\cvsectionskillscontentafter}{0.12em}
 
 % Compact sections (Education, Languages, Community)
-\newcommand{\cvsectioncompactbefore}{0.2em}
-\newcommand{\cvsectioncompactcontentafter}{0.08em}
+\newcommand{\cvsectioncompactbefore}{0.16em}
+\newcommand{\cvsectioncompactcontentafter}{0.06em}
 
-% Experience rhythm
-\newcommand{\cventryvspace}{0.42em}
-\newcommand{\cventrycompactvspace}{0.28em}
-\newcommand{\cventrylegacyvspace}{0.2em}
+% Experience rhythm (light global tighten)
+\newcommand{\cventryvspace}{0.4em}
+\newcommand{\cventrycompactvspace}{0.26em}
+\newcommand{\cventrylegacyvspace}{0.19em}
 
 \newcommand{\cvheaderafter}{0.38em}
 \newcommand{\cvskillcategorygap}{0.2em}
@@ -50,38 +50,41 @@
   \vspace{\cvheaderafter}%
 }
 
-% --- Sections ---
+% --- Sections: editorial header block (rule + title + rule) ---
 \newcommand{\cvsectionrule}{%
   \noindent\textcolor{cvrule}{\rule{\linewidth}{0.4pt}}%
 }
 
-\newcommand{\cvsection@head}[2]{%
-  \vspace{\cvsectionbefore}%
+\newcommand{\cvsectionblock@draw}[1]{%
+  \begingroup
+  \setlength{\parskip}{0pt}%
+  \setlength{\parindent}{0pt}%
   \cvsectionrule\par
-  \vspace{\cvsectiontitlerulegap}%
+  \vspace{\cvsectionblockinner}%
   \noindent{\normalsize\bfseries\MakeUppercase{#1}}%
   \par
-  \vspace{\cvsectiontitlerulegap}%
+  \vspace{\cvsectionblockinner}%
   \cvsectionrule\par
+  \endgroup
+}
+
+\newcommand{\cvsectionblock}[2]{%
+  \vspace{\cvsectionbefore}%
+  \cvsectionblock@draw{#1}%
   \vspace{#2}%
 }
 
 \newcommand{\cvsection}[1]{%
-  \cvsection@head{#1}{\cvsectioncontentafter}%
+  \cvsectionblock{#1}{\cvsectioncontentafter}%
 }
 
 \newcommand{\cvsectionskills}[1]{%
-  \cvsection@head{#1}{\cvsectionskillscontentafter}%
+  \cvsectionblock{#1}{\cvsectionskillscontentafter}%
 }
 
 \newcommand{\cvsectioncompact}[1]{%
   \vspace{\cvsectioncompactbefore}%
-  \cvsectionrule\par
-  \vspace{\cvsectiontitlerulegap}%
-  \noindent{\normalsize\bfseries\MakeUppercase{#1}}%
-  \par
-  \vspace{\cvsectiontitlerulegap}%
-  \cvsectionrule\par
+  \cvsectionblock@draw{#1}%
   \vspace{\cvsectioncompactcontentafter}%
 }
 
@@ -113,15 +116,15 @@
 }
 
 \newenvironment{cvitems}{%
-  \vspace{0.06em}%
-  \begin{itemize}[leftmargin=1.1em, itemsep=1.5pt, topsep=2pt, parsep=0pt, partopsep=0pt]%
+  \vspace{0.05em}%
+  \begin{itemize}[leftmargin=1.1em, itemsep=1.25pt, topsep=1.75pt, parsep=0pt, partopsep=0pt]%
 }{%
   \end{itemize}%
 }
 
 \newenvironment{cvitemscompact}{%
   \vspace{0.04em}%
-  \begin{itemize}[leftmargin=1.05em, itemsep=1pt, topsep=1.5pt, parsep=0pt, partopsep=0pt]%
+  \begin{itemize}[leftmargin=1.05em, itemsep=0.85pt, topsep=1.35pt, parsep=0pt, partopsep=0pt]%
 }{%
   \end{itemize}%
 }
