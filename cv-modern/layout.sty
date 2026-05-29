@@ -1,4 +1,4 @@
-\ProvidesPackage{layout}[2026/05/29 v1.1 Editorial section header block]
+\ProvidesPackage{layout}[2026/05/29 v1.2 Final editorial polish]
 
 % --- Layout tokens ---
 \newlength{\cvlogocolwidth}
@@ -6,15 +6,16 @@
 \newlength{\cvlogowidth}
 \setlength{\cvlogowidth}{1.05cm}
 
-% Section header block: air above unit, tight inside, minimal gap to content
-\newcommand{\cvsectionbefore}{1.25em}
-\newcommand{\cvsectionblockinner}{0.01em}
+% Section header block: air above, tight title-to-bottom-rule, minimal gap to content
+\newcommand{\cvsectionbefore}{1.08em}
+\newcommand{\cvsectionblockinnertop}{0.07em}
+\newcommand{\cvsectionblockinnerbottom}{0.02em}
 \newcommand{\cvsectioncontentafter}{0.12em}
 \newcommand{\cvsectionskillscontentafter}{0.12em}
 
 % Compact sections (Education, Languages, Community)
-\newcommand{\cvsectioncompactbefore}{1.1em}
-\newcommand{\cvsectioncompactcontentafter}{0.02em}
+\newcommand{\cvsectioncompactbefore}{0.14em}
+\newcommand{\cvsectioncompactcontentafter}{0.05em}
 
 % Experience rhythm (light global tighten)
 \newcommand{\cventryvspace}{0.4em}
@@ -59,11 +60,12 @@
   \begingroup
   \setlength{\parskip}{0pt}%
   \setlength{\parindent}{0pt}%
-  \noindent\textcolor{cvrule}{\rule{\linewidth}{0.4pt}}
-  \vspace{0.03em}
-  \noindent{\normalsize\bfseries\MakeUppercase{#1}\par}
-  \vspace{-0.2em}
-  \noindent\textcolor{cvrule}{\rule{\linewidth}{0.4pt}}
+  \cvsectionrule\par
+  \vspace{\cvsectionblockinnertop}%
+  \noindent{\normalsize\bfseries\MakeUppercase{#1}}%
+  \par
+  \vspace{\cvsectionblockinnerbottom}%
+  \cvsectionrule\par
   \endgroup
 }
 
@@ -82,11 +84,9 @@
 }
 
 \newcommand{\cvsectioncompact}[1]{%
-  \par\medskip
-  \noindent
-  \vspace*{\cvsectioncompactbefore}%
+  \vspace{\cvsectioncompactbefore}%
   \cvsectionblock@draw{#1}%
-  \vspace*{\cvsectioncompactcontentafter}%
+  \vspace{\cvsectioncompactcontentafter}%
 }
 
 % --- Skills ---
@@ -109,20 +109,20 @@
 % --- Experience typography ---
 \newcommand{\cvjobheadline}[3]{%
   \noindent{\normalsize\bfseries #1}%
-  \hspace{0.3em}{\color{cvmuted}\textemdash}\hspace{0.3em}%
+  \hspace{0.28em}{\color{cvmuted}\textemdash}\hspace{0.28em}%
   {\normalsize\color{cvmuted}#2}%
   \def\cv@roletype{#3}%
   \def\cv@roletypeempty{}%
   \ifx\cv@roletype\cv@roletypeempty
   \else
-    \hspace{0.32em}{\color{cvroletype}\textperiodcentered}\hspace{0.32em}%
-    {\small\color{cvroletype}#3}%
+    \hspace{0.26em}{\color{cvroletype}\textperiodcentered}\hspace{0.22em}%
+    {\footnotesize\color{cvroletype}#3}%
   \fi
   \par
 }
 
 \newcommand{\cvperiodline}[1]{%
-  \vspace{0.06em}%
+  \vspace{0.05em}%
   \noindent{\small\bfseries\color{cvperiod}#1\par}%
 }
 
@@ -170,7 +170,7 @@
 \newcommand{\cvlogocell}[1]{%
   \begin{minipage}[t]{\cvlogocolwidth}%
     \raggedleft
-    \vspace{0.04em}%
+    \vspace{0.06em}%
     #1%
   \end{minipage}%
 }
