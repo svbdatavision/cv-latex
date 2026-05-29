@@ -21,6 +21,17 @@
 \newcommand{\cventrylegacyvspace}{0.18em}
 
 \newcommand{\cvheaderafter}{0.38em}
+
+% Profile photo (source: images/CV_photo; ~27% smaller than initial header layout)
+\newlength{\cvphotocolwidth}
+\setlength{\cvphotocolwidth}{2.07cm}
+\newlength{\cvphotowidth}
+\setlength{\cvphotowidth}{1.92cm}
+
+\newcommand{\cvprintphoto}{%
+  \includegraphics[width=\cvphotowidth,keepaspectratio]{CV_photo}%
+}
+
 \newcommand{\cvskillcategorygap}{0.2em}
 \newcommand{\cvskilltitleitems}{0.05em}
 \newcommand{\cvskillitemsafter}{0.15em}
