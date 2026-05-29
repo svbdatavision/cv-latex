@@ -7,13 +7,12 @@
 \setlength{\cvlogowidth}{1.05cm}
 
 % Section header: gap before top rule | inner top/bottom | gap after bottom rule
-\newcommand{\cvsectiongapabove}{0.58em}
-\newcommand{\cvsectioninnertop}{0.08em}
-\newcommand{\cvsectioninnerbottom}{0.03em}
-\newcommand{\cvsectiongapbelow}{0.14em}
+\newcommand{\cvsectiongapabove}{0.5em}
+\newcommand{\cvsectioninnertop}{0.1em}
+\newcommand{\cvsectioninnerbottom}{0.08em}
+\newcommand{\cvsectiongapbelow}{0.12em}
 \newcommand{\cvsectionskillsgapbelow}{0.12em}
 
-\newcommand{\cvsectioncompactgapabove}{0.42em}
 \newcommand{\cvsectioncompactgapbelow}{0.08em}
 
 % Experience: pre-entry gap only (no trailing par noise)
@@ -64,7 +63,7 @@
   \vspace{\cvsectioninnertop}%
   \noindent{\normalsize\bfseries\MakeUppercase{#1}}%
   \par
-  \vspace{-\baselineskip}%
+  \vspace{-0.72\baselineskip}%
   \vspace{\cvsectioninnerbottom}%
   \cvsectionrule\par
   \endgroup
@@ -85,9 +84,7 @@
 }
 
 \newcommand{\cvsectioncompact}[1]{%
-  \vspace{\cvsectioncompactgapabove}%
-  \cvsectionblock@draw{#1}%
-  \vspace{\cvsectioncompactgapbelow}%
+  \cvsectionblock{#1}{\cvsectioncompactgapbelow}%
 }
 
 % --- Skills ---
@@ -249,4 +246,9 @@
 
 \newcommand{\cvcommunityinline}[1]{%
   \noindent{\footnotesize\color{cvtext}#1\par}%
+}
+
+\newcommand{\cvcommunityitem}[2]{%
+  \noindent{\footnotesize\color{cvtext}\textbf{#1}\hspace{0.2em}{\color{cvmuted}\textemdash}\hspace{0.2em}#2\par}%
+  \vspace{0.06em}%
 }
