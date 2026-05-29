@@ -1,4 +1,4 @@
-\ProvidesPackage{layout}[2026/05/29 v1.2 Final editorial polish]
+\ProvidesPackage{layout}[2026/05/29 v1.3 Editorial spacing audit]
 
 % --- Layout tokens ---
 \newlength{\cvlogocolwidth}
@@ -6,21 +6,20 @@
 \newlength{\cvlogowidth}
 \setlength{\cvlogowidth}{1.05cm}
 
-% Section header block: air above, tight title-to-bottom-rule, minimal gap to content
-\newcommand{\cvsectionbefore}{1.08em}
-\newcommand{\cvsectionblockinnertop}{0.07em}
-\newcommand{\cvsectionblockinnerbottom}{0.02em}
-\newcommand{\cvsectioncontentafter}{0.12em}
-\newcommand{\cvsectionskillscontentafter}{0.12em}
+% Section header: gap before top rule | inner top/bottom | gap after bottom rule
+\newcommand{\cvsectiongapabove}{0.58em}
+\newcommand{\cvsectioninnertop}{0.08em}
+\newcommand{\cvsectioninnerbottom}{0.03em}
+\newcommand{\cvsectiongapbelow}{0.14em}
+\newcommand{\cvsectionskillsgapbelow}{0.12em}
 
-% Compact sections (Education, Languages, Community)
-\newcommand{\cvsectioncompactbefore}{0.14em}
-\newcommand{\cvsectioncompactcontentafter}{0.05em}
+\newcommand{\cvsectioncompactgapabove}{0.42em}
+\newcommand{\cvsectioncompactgapbelow}{0.08em}
 
-% Experience rhythm (light global tighten)
-\newcommand{\cventryvspace}{0.4em}
-\newcommand{\cventrycompactvspace}{0.26em}
-\newcommand{\cventrylegacyvspace}{0.19em}
+% Experience: pre-entry gap only (no trailing par noise)
+\newcommand{\cventryvspace}{0.38em}
+\newcommand{\cventrycompactvspace}{0.24em}
+\newcommand{\cventrylegacyvspace}{0.18em}
 
 \newcommand{\cvheaderafter}{0.38em}
 \newcommand{\cvskillcategorygap}{0.2em}
@@ -56,37 +55,39 @@
   \noindent\textcolor{cvrule}{\rule{\linewidth}{0.4pt}}%
 }
 
+% Editorial header unit: \par only where needed; tighten title-to-bottom-rule
 \newcommand{\cvsectionblock@draw}[1]{%
   \begingroup
   \setlength{\parskip}{0pt}%
   \setlength{\parindent}{0pt}%
   \cvsectionrule\par
-  \vspace{\cvsectionblockinnertop}%
+  \vspace{\cvsectioninnertop}%
   \noindent{\normalsize\bfseries\MakeUppercase{#1}}%
   \par
-  \vspace{\cvsectionblockinnerbottom}%
+  \vspace{-\baselineskip}%
+  \vspace{\cvsectioninnerbottom}%
   \cvsectionrule\par
   \endgroup
 }
 
 \newcommand{\cvsectionblock}[2]{%
-  \vspace{\cvsectionbefore}%
+  \vspace{\cvsectiongapabove}%
   \cvsectionblock@draw{#1}%
   \vspace{#2}%
 }
 
 \newcommand{\cvsection}[1]{%
-  \cvsectionblock{#1}{\cvsectioncontentafter}%
+  \cvsectionblock{#1}{\cvsectiongapbelow}%
 }
 
 \newcommand{\cvsectionskills}[1]{%
-  \cvsectionblock{#1}{\cvsectionskillscontentafter}%
+  \cvsectionblock{#1}{\cvsectionskillsgapbelow}%
 }
 
 \newcommand{\cvsectioncompact}[1]{%
-  \vspace{\cvsectioncompactbefore}%
+  \vspace{\cvsectioncompactgapabove}%
   \cvsectionblock@draw{#1}%
-  \vspace{\cvsectioncompactcontentafter}%
+  \vspace{\cvsectioncompactgapbelow}%
 }
 
 % --- Skills ---
@@ -118,31 +119,27 @@
     \hspace{0.26em}{\color{cvroletype}\textperiodcentered}\hspace{0.22em}%
     {\footnotesize\color{cvroletype}#3}%
   \fi
-  \par
+  \par\vspace{0.06em}%
 }
 
 \newcommand{\cvperiodline}[1]{%
-  \vspace{0.05em}%
   \noindent{\small\bfseries\color{cvperiod}#1\par}%
 }
 
 \newenvironment{cvitems}{%
-  \vspace{0.05em}%
-  \begin{itemize}[leftmargin=1.1em, itemsep=1.25pt, topsep=1.75pt, parsep=0pt, partopsep=0pt]%
+  \begin{itemize}[leftmargin=1.1em, itemsep=1.25pt, topsep=1.5pt, parsep=0pt, partopsep=0pt, after=\vspace{0pt}]%
 }{%
   \end{itemize}%
 }
 
 \newenvironment{cvitemscompact}{%
-  \vspace{0.04em}%
-  \begin{itemize}[leftmargin=1.05em, itemsep=0.85pt, topsep=1.35pt, parsep=0pt, partopsep=0pt]%
+  \begin{itemize}[leftmargin=1.05em, itemsep=0.85pt, topsep=1.25pt, parsep=0pt, partopsep=0pt, after=\vspace{0pt}]%
 }{%
   \end{itemize}%
 }
 
 \newenvironment{cvitemslegacy}{%
-  \vspace{0.03em}%
-  \begin{itemize}[leftmargin=1em, itemsep=0.5pt, topsep=1pt, parsep=0pt, partopsep=0pt]%
+  \begin{itemize}[leftmargin=1em, itemsep=0.5pt, topsep=1pt, parsep=0pt, partopsep=0pt, after=\vspace{0pt}]%
 }{%
   \end{itemize}%
 }
@@ -206,7 +203,6 @@
       \cvlogocell{\cvprintlogo{#5}} \\
     \end{tabularx}%
   \fi
-  \par
 }
 
 \newcommand{\cventry}[6]{%
@@ -244,7 +240,6 @@
     \end{tabularx}%
     \endgroup
   \fi
-  \par
 }
 
 % --- Languages / Community (inline compact) ---
