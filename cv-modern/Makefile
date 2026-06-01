@@ -1,7 +1,14 @@
 # Bilingual build for cv-modern (shared layout; language-specific content).
+#
+# Outputs:
+#   build/en/CV_von_Bergen_Sebastian.pdf
+#   build/es/CV_von_Bergen_Sebastian_es.pdf
 
 TEX := pdflatex
 TEXFLAGS := -interaction=nonstopmode -halt-on-error
+
+JOBNAME_EN := CV_von_Bergen_Sebastian
+JOBNAME_ES := CV_von_Bergen_Sebastian_es
 
 CONTENT_BASENAMES := \
 	00-header.tex \
@@ -20,8 +27,10 @@ PHOTO := ../images/CV_photo.png
 
 SHARED_DEPS := preamble.tex layout.sty $(LOGOS) $(PHOTO)
 
-PDF_EN := build/en/CV_Sebastian_AI_EN.pdf
-PDF_ES := build/es/CV_Sebastian_AI_ES.pdf
+OUTDIR_EN := build/en
+OUTDIR_ES := build/es
+PDF_EN := $(OUTDIR_EN)/$(JOBNAME_EN).pdf
+PDF_ES := $(OUTDIR_ES)/$(JOBNAME_ES).pdf
 
 .PHONY: all en es clean distclean
 
@@ -32,18 +41,23 @@ en: $(PDF_EN)
 es: $(PDF_ES)
 
 $(PDF_EN): main.en.tex $(SHARED_DEPS) $(EN_CONTENT)
-	@mkdir -p build/en
-	$(TEX) $(TEXFLAGS) -output-directory=build/en -jobname=CV_Sebastian_AI_EN main.en.tex
+	@mkdir -p $(OUTDIR_EN)
+	$(TEX) $(TEXFLAGS) -output-directory=$(OUTDIR_EN) -jobname=$(JOBNAME_EN) main.en.tex
 
 $(PDF_ES): main.es.tex $(SHARED_DEPS) $(ES_CONTENT)
-	@mkdir -p build/es
-	$(TEX) $(TEXFLAGS) -output-directory=build/es -jobname=CV_Sebastian_AI_ES main.es.tex
+	@mkdir -p $(OUTDIR_ES)
+	$(TEX) $(TEXFLAGS) -output-directory=$(OUTDIR_ES) -jobname=$(JOBNAME_ES) main.es.tex
 
 clean:
-	rm -f build/en/CV_Sebastian_AI_EN.pdf build/en/CV_Sebastian_AI_EN.aux \
-		build/en/CV_Sebastian_AI_EN.log build/en/CV_Sebastian_AI_EN.out
-	rm -f build/es/CV_Sebastian_AI_ES.pdf build/es/CV_Sebastian_AI_ES.aux \
-		build/es/CV_Sebastian_AI_ES.log build/es/CV_Sebastian_AI_ES.out
+	rm -f $(OUTDIR_EN)/$(JOBNAME_EN).pdf $(OUTDIR_EN)/$(JOBNAME_EN).aux \
+		$(OUTDIR_EN)/$(JOBNAME_EN).log $(OUTDIR_EN)/$(JOBNAME_EN).out
+	rm -f $(OUTDIR_ES)/$(JOBNAME_ES).pdf $(OUTDIR_ES)/$(JOBNAME_ES).aux \
+		$(OUTDIR_ES)/$(JOBNAME_ES).log $(OUTDIR_ES)/$(JOBNAME_ES).out
+	@# Remove legacy output names from earlier builds (regenerable)
+	rm -f $(OUTDIR_EN)/CV_Sebastian_AI_EN.pdf $(OUTDIR_EN)/CV_Sebastian_AI_EN.aux \
+		$(OUTDIR_EN)/CV_Sebastian_AI_EN.log $(OUTDIR_EN)/CV_Sebastian_AI_EN.out
+	rm -f $(OUTDIR_ES)/CV_Sebastian_AI_ES.pdf $(OUTDIR_ES)/CV_Sebastian_AI_ES.aux \
+		$(OUTDIR_ES)/CV_Sebastian_AI_ES.log $(OUTDIR_ES)/CV_Sebastian_AI_ES.out
 
 distclean:
 	rm -rf build

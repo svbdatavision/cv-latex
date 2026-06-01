@@ -5,3 +5,7 @@ build/
 *.synctex.gz
 *.fdb_latexmk
 *.fls
+
+# Legacy jobnames (pre CV_von_Bergen_Sebastian rename)
+build/en/CV_Sebastian_AI_EN.*
+build/es/CV_Sebastian_AI_ES.*
