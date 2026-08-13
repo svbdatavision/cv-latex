@@ -1,94 +1,104 @@
 \cvsection{Experience}
 
-\cventry{05/2026 - Present}{AI Engineer}{Agrosuper}{contractor}{agrosuper.png}{%
+\cventrykeep
+\cventry{05/2026 - Present}{AI Engineer}{Agrosuper}{contractor \textperiodcentered\ AI/ML Center of Excellence (CoE)}{agrosuper.png}{%
 \begin{cvitems}
-  \item Designed and implemented ML pipelines on Azure Databricks using Python, SQL, and PySpark, covering model training, validation, deployment, and inference.
-  \item Built distributed ETL and data pipelines in Spark (DataFrames, transformations, feature processing) to prepare training and scoring datasets.
-  \item Automated development $\rightarrow$ training $\rightarrow$ validation $\rightarrow$ deployment $\rightarrow$ monitoring workflows with CI/CD, Git/GitHub version control, and scheduled jobs.
-  \item Implemented model monitoring and model lifecycle tracking (reproducibility, output validation, and artifact versioning) on Azure Databricks.
-  \item Orchestrated production ML pipelines on Azure, integrating data validation, Spark job execution, and continuous operation of deployed models.
+  \item Built ML pipelines on Azure Databricks with Python, SQL, and PySpark DataFrames, covering development, training, validation, deployment, inference, monitoring, and lifecycle management.
+  \item Developed distributed ETL and feature-processing jobs in Spark for training and scoring datasets, integrating data validation and scheduled Databricks Jobs.
+  \item Worked within the AI/ML Center of Excellence (CoE), contributing to MLOps standards, architecture guidelines, reusable ML patterns, and standardized project/pipeline structures.
+  \item Defined and applied validation, deployment, and production-readiness practices, including model monitoring, observability, reproducibility, traceability, versioning, and operational documentation.
+  \item Promoted secure development practices across Dev / QA / Prod: access control, secrets management, least-privilege handling of credentials, environment isolation, and controlled production deployments of ML assets.
+  \item Supported teams adopting consistent AI/ML engineering practices on Azure Databricks, combining hands-on pipeline delivery with governance and standardization across the model lifecycle.
 \end{cvitems}%
 }
 
+\cventrykeep
 \cventry{03/2026 - 05/2026}{AI Engineer}{Accenture}{contractor}{accenture.png}{%
 \begin{cvitems}
-  \item Designed Generative AI / Agentic AI multi-agent systems on Azure and Databricks, with agent orchestration that receives inputs, calls tools/APIs/models, and executes actions.
-  \item Implemented Python AI pipelines with Prompt Engineering, REST API integration, and an input $\rightarrow$ orchestrator $\rightarrow$ tools/models $\rightarrow$ response/action flow for business processes.
-  \item Built LLM-driven workflow automation connecting generative models to APIs and internal systems for structured responses and task execution.
-  \item Deployed AI components with CI/CD and Git/GitHub versioning, including model integration and agent orchestration on Azure/Databricks.
-  \item Developed Multi-Agent System architectures for operational automation---integrated AI systems embedded in business processes, not one-off LLM usage.
+  \item Designed Agentic AI / Multi-Agent Systems on Azure and Databricks, with orchestrators that receive inputs, call tools/APIs, invoke LLMs, and return structured responses or actions.
+  \item Implemented GenAI pipelines in Python using Prompt Engineering, LangChain/LangGraph patterns, OpenAI APIs, tool calling, and structured outputs for enterprise workflow automation.
+  \item Built agent workflows combining retrieval/tools/APIs with LLMs (RAG where applicable) so agents can fetch context, execute business actions, and produce context-aware responses.
+  \item Integrated REST APIs and internal systems into agent orchestration flows: input $\rightarrow$ orchestrator/agent $\rightarrow$ retrieval/tools/APIs $\rightarrow$ LLM $\rightarrow$ structured response/action.
+  \item Deployed AI components with CI/CD on Azure/Databricks, focusing on reproducible agent pipelines rather than one-off prompt usage against a single LLM.
 \end{cvitems}%
 }
 
+\cventrykeep
 \cventry{01/2026 - 03/2026}{Data Scientist}{Colmena}{contractor}{colmena.png}{%
 \begin{cvitems}
-  \item Migrated SQL/ML workloads from Snowflake to Azure Databricks (controlled lift-and-shift), adapting business logic and ETL pipelines to Spark notebooks and jobs.
-  \item Rewrote Snowflake transformations in PySpark/Spark SQL: DataFrames, joins, aggregations, window functions (\texttt{ROW\_NUMBER}), date transformations, and \texttt{MERGE}-style operations.
-  \item Translated Snowflake patterns to Spark (e.g.\ \texttt{QUALIFY}/\texttt{ROW\_NUMBER}, \texttt{IFF}/\texttt{DECODE} $\rightarrow$ \texttt{CASE}) while preserving functional query equivalence.
-  \item Implemented migration validations: row counts, null checks, duplicate detection, business-metric reconciliation, and functional checks before cutover.
-  \item Optimized ETL and ML workloads on Azure Databricks with Python, SQL, PySpark, and Spark SQL, leaving production-ready pipelines under Git/GitHub.
-  \item Versioned migration notebooks/pipelines, including ML output validation and preparation of workloads for productive execution on Azure.
+  \item Migrated 4 productive ML/SQL workloads from Snowflake to Azure Databricks, adapting business logic and ETL into Databricks notebooks and Spark jobs (controlled lift-and-shift).
+  \item Rewrote Snowflake SQL into PySpark/Spark SQL DataFrames: joins, aggregations, window functions (\texttt{ROW\_NUMBER}/\texttt{QUALIFY}), date transformations, and \texttt{MERGE}-style upserts.
+  \item Translated Snowflake constructs to Spark equivalents (\texttt{IFF}/\texttt{DECODE} $\rightarrow$ \texttt{CASE}, window filters, date logic) while preserving functional parity of migrated models.
+  \item Executed migration validations: row counts, null checks, duplicate detection, business-metric reconciliation, and functional checks before cutover.
+  \item Optimized ETL and ML workloads on Azure Databricks with Python, SQL, PySpark, and Spark SQL for production readiness after migration.
+  \item Prepared migrated notebooks/pipelines for productive execution on Azure, validating ML outputs and operational readiness of the four workloads.
 \end{cvitems}%
 }
 
+\cventrykeep
 \cventry{05/2025 - 12/2025}{AI \& Automation Engineer}{Unilever}{contractor}{unilever.png}{%
 \begin{cvitems}
-  \item Designed Python document-processing pipelines for multiple document types (PDF and unstructured sources): text extraction, parsing, and field structuring.
-  \item Implemented the flow documents $\rightarrow$ extraction $\rightarrow$ parsing $\rightarrow$ structuring $\rightarrow$ normalization $\rightarrow$ transformation $\rightarrow$ report generation.
-  \item Automated data normalization and transformation (including regular expressions and Excel-like outputs) to integrate extracted information into operational workflows.
-  \item Integrated components via REST APIs / JSON on Azure to orchestrate extraction, transformation, and automated report delivery.
-  \item Versioned and maintained automation pipelines with Git/GitHub, enabling reproducible end-to-end document processing execution.
+  \item Built Python document-processing pipelines for multiple document types (PDFs and other unstructured sources): ingestion, text extraction, parsing, and field structuring.
+  \item Implemented documents $\rightarrow$ ingestion $\rightarrow$ extraction $\rightarrow$ parsing $\rightarrow$ structuring $\rightarrow$ normalization $\rightarrow$ transformation $\rightarrow$ report generation.
+  \item Automated normalization and transformation with regular expressions and tabular/Excel-like outputs to feed operational reporting flows.
+  \item Integrated extraction and reporting steps via REST APIs and JSON on Azure, orchestrating automated report delivery from structured document data.
+  \item Hardened the document automation pipeline with validation of extracted fields and reproducible runs across document batches on Azure.
 \end{cvitems}%
 }
 
+\cventrykeep
 \cventry{01/2025 - 04/2025}{AI Automation Developer}{Megatronix}{contractor}{megatronix.png}{%
 \begin{cvitems}
-  \item Built conversational agents with LLMs / Generative AI and Prompt Engineering to automate leads and support across WhatsApp and Instagram.
-  \item Orchestrated n8n workflows triggered by HTTP webhooks, connecting messaging events to REST APIs and Python business logic.
-  \item Integrated external systems via REST APIs (JSON/HTTP): authentication, request/response handling, and orchestration of cross-service calls.
-  \item Implemented event-driven lead and customer-support automation, with n8n as the orchestrator and LLMs generating conversational responses/actions.
-  \item Developed end-to-end API orchestration flows (webhook $\rightarrow$ n8n workflow $\rightarrow$ APIs/LLM $\rightarrow$ channel response), with Git/GitHub version control.
+  \item Built conversational AI and automation workflows in n8n as the central orchestration platform for WhatsApp and Instagram lead/support interactions.
+  \item Designed channel event $\rightarrow$ webhook $\rightarrow$ n8n workflow $\rightarrow$ HTTP Request nodes / REST APIs $\rightarrow$ LLM $\rightarrow$ business logic $\rightarrow$ response/action flows.
+  \item Orchestrated lead and customer-support processes with n8n triggers, webhook endpoints, JSON payloads, and LLM API integrations with Prompt Engineering.
+  \item Connected messaging channels to downstream systems through n8n HTTP/API nodes, routing events into automated responses and follow-up actions.
+  \item Delivered workflow automation focused on n8n nodes, webhooks, REST APIs, and LLM-driven conversational agents.
 \end{cvitems}%
 }
 
+\cventrykeep
 \cventry{02/2024 - 12/2024}{Data Scientist}{Banco Galicia}{contractor}{Banco_Galicia.png}{%
 \begin{cvitems}
-  \item Developed merchant risk / fraud detection models on Azure with Python, Pandas, NumPy, and Scikit-learn (Random Forest), including SMOTE for imbalanced datasets.
-  \item Built feature engineering from Brighterion and Cybersource data: ingestion, variable consolidation, cleaning, and merchant-risk feature creation.
-  \item Implemented scoring and classification pipelines with model validation, threshold analysis, and production fraud metrics.
-  \item Combined Machine Learning with hard rules / business rules in decision systems for merchant scoring and fraud control.
-  \item Deployed fraud monitoring and production metrics on Azure, using SQL for analytical queries and Git/GitHub for version control.
+  \item Developed merchant-risk and fraud-detection models on Azure with Python, Pandas, NumPy, and Scikit-learn (Random Forest), using SMOTE for imbalanced classification.
+  \item Ingested and processed Brighterion and Cybersource data: consolidation of risk variables, cleaning, and feature engineering for merchant scoring.
+  \item Trained and validated classification models with threshold analysis to balance detection performance against false-positive behavior in fraud scoring.
+  \item Combined ML scores with hard rules / business rules in decision systems for merchant risk and chargeback-oriented fraud control.
+  \item Implemented fraud monitoring and production metrics on Azure (precision/recall-oriented evaluation and operational tracking).
 \end{cvitems}%
 }
 
+\cventrykeep
 \cventry{08/2023 - 01/2024}{Data Scientist}{AB InBev}{contractor}{logo_AB_InBev.png}{%
 \begin{cvitems}
-  \item Built end-to-end ETL pipelines on Azure Databricks with PySpark DataFrames and Spark SQL: cleaning, joins, aggregations, and reusable transformations.
-  \item Generated segmentation features and datasets through distributed Spark processing (transformations, aggregations, feature generation) on Azure.
-  \item Developed segmentation / personalized-audience models with Python, SQL, and Pandas where applicable, evaluating performance for marketing campaigns.
-  \item Automated data and analytics pipelines in Databricks notebooks/jobs, from ingestion through audience-scoring-ready datasets.
-  \item Versioned code and notebooks with Git/GitHub, presenting model evaluation and campaign-analytics results to stakeholders.
+  \item Built distributed feature-generation and audience-processing pipelines with PySpark DataFrames and Spark SQL on Azure Databricks (joins, aggregations, reusable ETL transforms).
+  \item Generated customer-level marketing datasets through Spark cleaning, transformations, and feature generation for segmentation and personalized audiences.
+  \item Automated Databricks notebooks/jobs from ingestion to audience-ready outputs consumed by marketing campaign processes.
+  \item Analyzed segmentation/audience model performance and campaign analytics, presenting results and recommendations to stakeholders.
+  \item Delivered Data Engineering--oriented analytics on Azure Databricks with Python, SQL, and Pandas for dataset preparation and evaluation.
 \end{cvitems}%
 }
 
+\cventrykeep
 \cventry{04/2021 - 07/2023}{Data Scientist}{Mercado Libre}{}{MELI.jpeg}{%
 \begin{cvitems}
-  \item Designed fraud detection and risk-scoring pipelines on AWS with Python, SQL, Pandas, NumPy, and Scikit-learn: S3 for datasets, Glue for ETL, Athena for analytical SQL, EMR for distributed processing, and SageMaker for experimentation/training/deployment.
-  \item Implemented feature engineering and supervised learning for fraud scoring/classification, combining ML models with business rules in high-volume decision systems.
-  \item Developed fraud profiling and risk segmentation with PCA and HDBSCAN clustering for anomaly/pattern analysis and fraud-profile segmentation.
-  \item Built image-similarity analysis with OpenCV, SIFT/SURF, and feature matching to detect similarities in fraud-related images.
-  \item Orchestrated data/ML pipelines in Jupyter with Git/GitHub: training, validation, production scoring, and fraud/risk metric monitoring on SageMaker.
-  \item Led the full fraud-prevention cycle in the AWS ecosystem (ingest $\rightarrow$ ETL $\rightarrow$ features $\rightarrow$ model $\rightarrow$ scoring $\rightarrow$ monitoring).
+  \item Led a 3-person Data Science team on fraud prevention, designing risk-scoring pipelines with Python, SQL, Pandas, NumPy, and Scikit-learn on AWS.
+  \item Used Amazon S3 for dataset storage, AWS Glue for ETL, Athena for analytical SQL, EMR for distributed processing, and SageMaker for ML experimentation, training, and deployment.
+  \item Implemented supervised classification and Feature Engineering for fraud/risk scoring, combining ML outputs with fraud business rules in high-volume decision systems.
+  \item Developed fraud profiling and segmentation with PCA, K-Means, and HDBSCAN to identify behavioral patterns and clusters in transactional data.
+  \item Built image-similarity detection with OpenCV, SIFT/SURF, and feature matching for fraud-related image pattern analysis.
+  \item Operated scoring and monitoring on SageMaker/Jupyter for high-volume transactions: validation, production scoring, and fraud/risk metric tracking.
 \end{cvitems}%
 }
 
+\cventrykeep
 \cventry{08/2019 - 03/2021}{Data Scientist}{Ixpandit}{}{ixpandit.png}{%
 \begin{cvitems}
-  \item Developed Credit Risk scorecards and models (Logistic Regression / supervised classification) with Python, Pandas, NumPy, and Scikit-learn for new and renewing customers.
-  \item Implemented the flow data extraction $\rightarrow$ cleaning $\rightarrow$ feature engineering $\rightarrow$ model training $\rightarrow$ validation $\rightarrow$ scoring $\rightarrow$ monitoring, including EDA, missing-value handling, and variable selection.
-  \item Built ETL and scoring pipelines in SQL/Python for lending decisions, with model validation and classification metrics.
-  \item Containerized scoring/validation components with Docker and ran experimentation in Jupyter Notebook, with Git version control.
-  \item Monitored production model performance and adjusted scorecards/scoring pipelines based on metric degradation and portfolio changes.
+  \item Developed Credit Risk scorecards with Logistic Regression / supervised classification (Python, Pandas, NumPy, Scikit-learn) for new customers and renewing customers.
+  \item Executed data $\rightarrow$ EDA/cleaning $\rightarrow$ Feature Engineering $\rightarrow$ training $\rightarrow$ validation $\rightarrow$ scorecard/scoring $\rightarrow$ monitoring, including missing-value treatment and variable selection.
+  \item Built SQL/Python ETL and scoring pipelines for lending decisions, with model validation and classification-metric monitoring in production.
+  \item Containerized scoring/validation components with Docker and ran experimentation in Jupyter Notebook.
+  \item Monitored scorecard performance over time and recalibrated scoring pipelines for new vs.\ renewer portfolios as metrics drifted.
 \end{cvitems}%
 }
 

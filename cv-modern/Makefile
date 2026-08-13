@@ -35,10 +35,10 @@ CONTENT_BASENAMES := \
 EN_CONTENT := $(addprefix content/en/,$(CONTENT_BASENAMES))
 ES_CONTENT := $(addprefix content/es/,$(CONTENT_BASENAMES))
 
-# Expanded variant reuses shared sections; only skills + experience differ.
+# Expanded variant: dedicated header/summary/skills/experience + shared education/languages/community.
 EN_EXPANDED_CONTENT := \
-	content/en/00-header.tex \
-	content/en/10-summary.tex \
+	content/en/expanded/00-header.tex \
+	content/en/expanded/10-summary.tex \
 	content/en/expanded/20-skills.tex \
 	content/en/expanded/30-experience.tex \
 	content/en/40-education.tex \
@@ -46,8 +46,8 @@ EN_EXPANDED_CONTENT := \
 	content/en/55-community.tex
 
 ES_EXPANDED_CONTENT := \
-	content/es/00-header.tex \
-	content/es/10-summary.tex \
+	content/es/expanded/00-header.tex \
+	content/es/expanded/10-summary.tex \
 	content/es/expanded/20-skills.tex \
 	content/es/expanded/30-experience.tex \
 	content/es/40-education.tex \
@@ -58,6 +58,7 @@ LOGOS := $(wildcard assets/logos/*)
 PHOTO := ../images/CV_photo.png
 
 SHARED_DEPS := preamble.tex layout.sty $(LOGOS) $(PHOTO)
+EXPANDED_DEPS := preamble.expanded.tex $(SHARED_DEPS)
 
 OUTDIR_EN := build/en
 OUTDIR_ES := build/es
@@ -90,11 +91,11 @@ $(PDF_ES): main.es.tex $(SHARED_DEPS) $(ES_CONTENT)
 	@mkdir -p $(OUTDIR_ES)
 	$(TEX) $(TEXFLAGS) -output-directory=$(OUTDIR_ES) -jobname=$(JOBNAME_ES) main.es.tex
 
-$(PDF_EN_EXPANDED): main.en.expanded.tex $(SHARED_DEPS) $(EN_EXPANDED_CONTENT)
+$(PDF_EN_EXPANDED): main.en.expanded.tex $(EXPANDED_DEPS) $(EN_EXPANDED_CONTENT)
 	@mkdir -p $(OUTDIR_EN)
 	$(TEX) $(TEXFLAGS) -output-directory=$(OUTDIR_EN) -jobname=$(JOBNAME_EN_EXPANDED) main.en.expanded.tex
 
-$(PDF_ES_EXPANDED): main.es.expanded.tex $(SHARED_DEPS) $(ES_EXPANDED_CONTENT)
+$(PDF_ES_EXPANDED): main.es.expanded.tex $(EXPANDED_DEPS) $(ES_EXPANDED_CONTENT)
 	@mkdir -p $(OUTDIR_ES)
 	$(TEX) $(TEXFLAGS) -output-directory=$(OUTDIR_ES) -jobname=$(JOBNAME_ES_EXPANDED) main.es.expanded.tex
 
