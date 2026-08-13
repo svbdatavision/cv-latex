@@ -1,14 +1,27 @@
 # Bilingual build for cv-modern (shared layout; language-specific content).
 #
-# Outputs:
+# Outputs (standard — default):
 #   build/en/CV_von_Bergen_Sebastian.pdf
 #   build/es/CV_von_Bergen_Sebastian_es.pdf
+#
+# Outputs (expanded / ampliado):
+#   build/en/CV_von_Bergen_Sebastian_expanded.pdf
+#   build/es/CV_von_Bergen_Sebastian_es_ampliado.pdf
+#
+# Usage:
+#   make              # standard EN + ES
+#   make en / make es
+#   make expanded     # expanded EN + ES
+#   make en-expanded / make es-expanded
+#   make all          # standard + expanded (four PDFs)
 
 TEX := pdflatex
 TEXFLAGS := -interaction=nonstopmode -halt-on-error
 
 JOBNAME_EN := CV_von_Bergen_Sebastian
 JOBNAME_ES := CV_von_Bergen_Sebastian_es
+JOBNAME_EN_EXPANDED := CV_von_Bergen_Sebastian_expanded
+JOBNAME_ES_EXPANDED := CV_von_Bergen_Sebastian_es_ampliado
 
 CONTENT_BASENAMES := \
 	00-header.tex \
@@ -22,6 +35,25 @@ CONTENT_BASENAMES := \
 EN_CONTENT := $(addprefix content/en/,$(CONTENT_BASENAMES))
 ES_CONTENT := $(addprefix content/es/,$(CONTENT_BASENAMES))
 
+# Expanded variant reuses shared sections; only skills + experience differ.
+EN_EXPANDED_CONTENT := \
+	content/en/00-header.tex \
+	content/en/10-summary.tex \
+	content/en/expanded/20-skills.tex \
+	content/en/expanded/30-experience.tex \
+	content/en/40-education.tex \
+	content/en/50-languages.tex \
+	content/en/55-community.tex
+
+ES_EXPANDED_CONTENT := \
+	content/es/00-header.tex \
+	content/es/10-summary.tex \
+	content/es/expanded/20-skills.tex \
+	content/es/expanded/30-experience.tex \
+	content/es/40-education.tex \
+	content/es/50-languages.tex \
+	content/es/55-community.tex
+
 LOGOS := $(wildcard assets/logos/*)
 PHOTO := ../images/CV_photo.png
 
@@ -31,14 +63,24 @@ OUTDIR_EN := build/en
 OUTDIR_ES := build/es
 PDF_EN := $(OUTDIR_EN)/$(JOBNAME_EN).pdf
 PDF_ES := $(OUTDIR_ES)/$(JOBNAME_ES).pdf
+PDF_EN_EXPANDED := $(OUTDIR_EN)/$(JOBNAME_EN_EXPANDED).pdf
+PDF_ES_EXPANDED := $(OUTDIR_ES)/$(JOBNAME_ES_EXPANDED).pdf
 
-.PHONY: all en es clean distclean
+.PHONY: all standard expanded en es en-expanded es-expanded everything clean distclean
 
+# Default keeps historical behavior: standard bilingual CVs only.
 all: en es
+standard: all
 
 en: $(PDF_EN)
-
 es: $(PDF_ES)
+
+expanded: en-expanded es-expanded
+en-expanded: $(PDF_EN_EXPANDED)
+es-expanded: $(PDF_ES_EXPANDED)
+
+# Convenience: generate all four PDFs (standard + expanded).
+everything: all expanded
 
 $(PDF_EN): main.en.tex $(SHARED_DEPS) $(EN_CONTENT)
 	@mkdir -p $(OUTDIR_EN)
@@ -48,11 +90,23 @@ $(PDF_ES): main.es.tex $(SHARED_DEPS) $(ES_CONTENT)
 	@mkdir -p $(OUTDIR_ES)
 	$(TEX) $(TEXFLAGS) -output-directory=$(OUTDIR_ES) -jobname=$(JOBNAME_ES) main.es.tex
 
+$(PDF_EN_EXPANDED): main.en.expanded.tex $(SHARED_DEPS) $(EN_EXPANDED_CONTENT)
+	@mkdir -p $(OUTDIR_EN)
+	$(TEX) $(TEXFLAGS) -output-directory=$(OUTDIR_EN) -jobname=$(JOBNAME_EN_EXPANDED) main.en.expanded.tex
+
+$(PDF_ES_EXPANDED): main.es.expanded.tex $(SHARED_DEPS) $(ES_EXPANDED_CONTENT)
+	@mkdir -p $(OUTDIR_ES)
+	$(TEX) $(TEXFLAGS) -output-directory=$(OUTDIR_ES) -jobname=$(JOBNAME_ES_EXPANDED) main.es.expanded.tex
+
 clean:
 	rm -f $(OUTDIR_EN)/$(JOBNAME_EN).pdf $(OUTDIR_EN)/$(JOBNAME_EN).aux \
 		$(OUTDIR_EN)/$(JOBNAME_EN).log $(OUTDIR_EN)/$(JOBNAME_EN).out
 	rm -f $(OUTDIR_ES)/$(JOBNAME_ES).pdf $(OUTDIR_ES)/$(JOBNAME_ES).aux \
 		$(OUTDIR_ES)/$(JOBNAME_ES).log $(OUTDIR_ES)/$(JOBNAME_ES).out
+	rm -f $(OUTDIR_EN)/$(JOBNAME_EN_EXPANDED).pdf $(OUTDIR_EN)/$(JOBNAME_EN_EXPANDED).aux \
+		$(OUTDIR_EN)/$(JOBNAME_EN_EXPANDED).log $(OUTDIR_EN)/$(JOBNAME_EN_EXPANDED).out
+	rm -f $(OUTDIR_ES)/$(JOBNAME_ES_EXPANDED).pdf $(OUTDIR_ES)/$(JOBNAME_ES_EXPANDED).aux \
+		$(OUTDIR_ES)/$(JOBNAME_ES_EXPANDED).log $(OUTDIR_ES)/$(JOBNAME_ES_EXPANDED).out
 	@# Remove legacy output names from earlier builds (regenerable)
 	rm -f $(OUTDIR_EN)/CV_Sebastian_AI_EN.pdf $(OUTDIR_EN)/CV_Sebastian_AI_EN.aux \
 		$(OUTDIR_EN)/CV_Sebastian_AI_EN.log $(OUTDIR_EN)/CV_Sebastian_AI_EN.out
