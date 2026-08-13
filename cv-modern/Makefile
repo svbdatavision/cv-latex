@@ -9,11 +9,11 @@
 #   build/es/CV_von_Bergen_Sebastian_es_ampliado.pdf
 #
 # Usage:
-#   make              # standard EN + ES
+#   make                 # standard EN + ES (default; unchanged)
 #   make en / make es
-#   make expanded     # expanded EN + ES
+#   make expanded        # expanded EN + ES
 #   make en-expanded / make es-expanded
-#   make all          # standard + expanded (four PDFs)
+#   make everything      # standard + expanded (four PDFs)
 
 TEX := pdflatex
 TEXFLAGS := -interaction=nonstopmode -halt-on-error
