@@ -42,6 +42,8 @@ make clean
 make distclean
 ```
 
+`make check` only needs Python. If `pdftotext` (poppler-utils) is installed it also validates PDF text; otherwise it validates the separated `.tex` sources.
+
 ## Outputs
 
 | Language | Variant | Path |
