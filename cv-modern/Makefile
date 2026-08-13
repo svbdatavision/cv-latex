@@ -1,6 +1,10 @@
-# Bilingual build for cv-modern (shared layout; language-specific content).
+# Bilingual build for cv-modern (shared layout; language + variant content).
 #
-# Outputs (standard — default):
+# Variants:
+#   short     — original/resumido CVs (default; frozen content under content/*/short/)
+#   expanded  — CV Ampliado / Expanded CV (content/*/expanded/)
+#
+# Outputs (short — default):
 #   build/en/CV_von_Bergen_Sebastian.pdf
 #   build/es/CV_von_Bergen_Sebastian_es.pdf
 #
@@ -9,11 +13,12 @@
 #   build/es/CV_von_Bergen_Sebastian_es_ampliado.pdf
 #
 # Usage:
-#   make                 # standard EN + ES (default; unchanged)
+#   make                 # short EN + ES (default; unchanged)
 #   make en / make es
 #   make expanded        # expanded EN + ES
 #   make en-expanded / make es-expanded
-#   make everything      # standard + expanded (four PDFs)
+#   make everything      # short + expanded (four PDFs)
+#   make check           # regression guard for four distinct variants
 
 TEX := pdflatex
 TEXFLAGS := -interaction=nonstopmode -halt-on-error
@@ -23,36 +28,35 @@ JOBNAME_ES := CV_von_Bergen_Sebastian_es
 JOBNAME_EN_EXPANDED := CV_von_Bergen_Sebastian_expanded
 JOBNAME_ES_EXPANDED := CV_von_Bergen_Sebastian_es_ampliado
 
-CONTENT_BASENAMES := \
+SHORT_BASENAMES := \
 	00-header.tex \
 	10-summary.tex \
 	20-skills.tex \
-	30-experience.tex \
+	30-experience.tex
+
+SHARED_BASENAMES := \
 	40-education.tex \
 	50-languages.tex \
 	55-community.tex
 
-EN_CONTENT := $(addprefix content/en/,$(CONTENT_BASENAMES))
-ES_CONTENT := $(addprefix content/es/,$(CONTENT_BASENAMES))
+EN_SHORT_CONTENT := $(addprefix content/en/short/,$(SHORT_BASENAMES)) \
+	$(addprefix content/en/,$(SHARED_BASENAMES))
+ES_SHORT_CONTENT := $(addprefix content/es/short/,$(SHORT_BASENAMES)) \
+	$(addprefix content/es/,$(SHARED_BASENAMES))
 
-# Expanded variant: dedicated header/summary/skills/experience + shared education/languages/community.
 EN_EXPANDED_CONTENT := \
 	content/en/expanded/00-header.tex \
 	content/en/expanded/10-summary.tex \
 	content/en/expanded/20-skills.tex \
 	content/en/expanded/30-experience.tex \
-	content/en/40-education.tex \
-	content/en/50-languages.tex \
-	content/en/55-community.tex
+	$(addprefix content/en/,$(SHARED_BASENAMES))
 
 ES_EXPANDED_CONTENT := \
 	content/es/expanded/00-header.tex \
 	content/es/expanded/10-summary.tex \
 	content/es/expanded/20-skills.tex \
 	content/es/expanded/30-experience.tex \
-	content/es/40-education.tex \
-	content/es/50-languages.tex \
-	content/es/55-community.tex
+	$(addprefix content/es/,$(SHARED_BASENAMES))
 
 LOGOS := $(wildcard assets/logos/*)
 PHOTO := ../images/CV_photo.png
@@ -67,11 +71,12 @@ PDF_ES := $(OUTDIR_ES)/$(JOBNAME_ES).pdf
 PDF_EN_EXPANDED := $(OUTDIR_EN)/$(JOBNAME_EN_EXPANDED).pdf
 PDF_ES_EXPANDED := $(OUTDIR_ES)/$(JOBNAME_ES_EXPANDED).pdf
 
-.PHONY: all standard expanded en es en-expanded es-expanded everything clean distclean
+.PHONY: all standard short expanded en es en-expanded es-expanded everything check clean distclean
 
-# Default keeps historical behavior: standard bilingual CVs only.
+# Default keeps historical behavior: short bilingual CVs only.
 all: en es
 standard: all
+short: all
 
 en: $(PDF_EN)
 es: $(PDF_ES)
@@ -80,14 +85,14 @@ expanded: en-expanded es-expanded
 en-expanded: $(PDF_EN_EXPANDED)
 es-expanded: $(PDF_ES_EXPANDED)
 
-# Convenience: generate all four PDFs (standard + expanded).
+# Convenience: generate all four PDFs (short + expanded).
 everything: all expanded
 
-$(PDF_EN): main.en.tex $(SHARED_DEPS) $(EN_CONTENT)
+$(PDF_EN): main.en.tex $(SHARED_DEPS) $(EN_SHORT_CONTENT)
 	@mkdir -p $(OUTDIR_EN)
 	$(TEX) $(TEXFLAGS) -output-directory=$(OUTDIR_EN) -jobname=$(JOBNAME_EN) main.en.tex
 
-$(PDF_ES): main.es.tex $(SHARED_DEPS) $(ES_CONTENT)
+$(PDF_ES): main.es.tex $(SHARED_DEPS) $(ES_SHORT_CONTENT)
 	@mkdir -p $(OUTDIR_ES)
 	$(TEX) $(TEXFLAGS) -output-directory=$(OUTDIR_ES) -jobname=$(JOBNAME_ES) main.es.tex
 
@@ -98,6 +103,9 @@ $(PDF_EN_EXPANDED): main.en.expanded.tex $(EXPANDED_DEPS) $(EN_EXPANDED_CONTENT)
 $(PDF_ES_EXPANDED): main.es.expanded.tex $(EXPANDED_DEPS) $(ES_EXPANDED_CONTENT)
 	@mkdir -p $(OUTDIR_ES)
 	$(TEX) $(TEXFLAGS) -output-directory=$(OUTDIR_ES) -jobname=$(JOBNAME_ES_EXPANDED) main.es.expanded.tex
+
+check: everything
+	@python3 scripts/check_variants.py
 
 clean:
 	rm -f $(OUTDIR_EN)/$(JOBNAME_EN).pdf $(OUTDIR_EN)/$(JOBNAME_EN).aux \

@@ -1,19 +1,43 @@
 # cv-modern
 
-Bilingual CV (EN + ES) with shared `layout.sty` and `preamble.tex`.
+Bilingual CV (EN + ES) with shared `layout.sty` / `preamble.tex` and **separate content per variant**.
 
-Supports a second **expanded / ampliado** content variant (same design; denser technical experience and skills). Default builds remain the standard CVs.
+| Dimension | Values |
+|-----------|--------|
+| `language` | `en`, `es` |
+| `variant` | `short` (default/resumido), `expanded` (ampliado) |
+
+Short and expanded content are independent directories. Editing `content/*/expanded/` cannot change the short CV.
+
+## Layout
+
+```text
+content/
+├── en/
+│   ├── short/        # original EN CV content
+│   ├── expanded/     # Expanded CV content
+│   ├── 40-education.tex
+│   ├── 50-languages.tex
+│   └── 55-community.tex
+└── es/
+    ├── short/        # original ES CV content
+    ├── expanded/     # CV Ampliado content
+    ├── 40-education.tex
+    ├── 50-languages.tex
+    └── 55-community.tex
+```
 
 ## Build
 
 ```bash
-make              # standard EN + ES (default; same as before)
-make en           # standard English
-make es           # standard Spanish
+make              # short EN + ES (default; same as before)
+make en           # short English
+make es           # short Spanish
 make expanded     # expanded EN + ES
 make en-expanded  # Expanded CV (English)
 make es-expanded  # CV ampliado (Spanish)
-make everything   # standard + expanded (four PDFs)
+make everything   # all four PDFs
+make check        # build everything + regression guard
 make clean
 make distclean
 ```
@@ -22,9 +46,9 @@ make distclean
 
 | Language | Variant | Path |
 |----------|---------|------|
-| English | Standard | `build/en/CV_von_Bergen_Sebastian.pdf` |
-| Spanish | Standard | `build/es/CV_von_Bergen_Sebastian_es.pdf` |
+| English | Short | `build/en/CV_von_Bergen_Sebastian.pdf` |
+| Spanish | Short | `build/es/CV_von_Bergen_Sebastian_es.pdf` |
 | English | Expanded | `build/en/CV_von_Bergen_Sebastian_expanded.pdf` |
 | Spanish | Ampliado | `build/es/CV_von_Bergen_Sebastian_es_ampliado.pdf` |
 
-Content: `content/en/` and `content/es/` (mirrored structure). Expanded skills/experience live under `content/*/expanded/`. Photo: `../images/CV_photo.png`.
+Photo: `../images/CV_photo.png`.
