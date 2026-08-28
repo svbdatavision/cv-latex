@@ -54,3 +54,15 @@ make distclean
 | Spanish | Ampliado | `build/es/CV_von_Bergen_Sebastian_es_ampliado.pdf` |
 
 Photo: `../images/CV_photo.png`.
+
+## Workiva one-shot (EN only)
+
+`build/` is gitignored, so Workiva PDFs are not in git. Generate them locally:
+
+```bash
+bash scripts/generate_workiva_en.sh
+# → build/en/CV_von_Bergen_Sebastian_Workiva_AI_ML_Security.pdf
+# → build/en/CV_von_Bergen_Sebastian_expanded_Workiva_AI_ML_Security.pdf
+```
+
+This does not modify permanent short/expanded sources. Requires `pdflatex` (TeX Live).
