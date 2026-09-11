@@ -95,7 +95,14 @@
 }
 
 \newcommand{\cvsectioncompact}[1]{%
-  \cvsectionblock{#1}{\cvsectioncompactgapbelow}%
+  % Hide Education / Educación section title for all CV variants (EN/ES, short/expanded).
+  \ifnum\pdfstrcmp{#1}{Education}=0
+  \else
+    \ifnum\pdfstrcmp{#1}{Educación}=0
+    \else
+      \cvsectionblock{#1}{\cvsectioncompactgapbelow}%
+    \fi
+  \fi
 }
 
 % --- Skills ---
@@ -226,29 +233,31 @@
 }
 
 % --- Education (single-line compact) ---
-\newcommand{\cveducationinline}[5]{%
-  \noindent
-  \def\cv@entrylogoA{#4}%
-  \def\cv@entrylogoB{#5}%
-  \def\cv@logorempty{}%
-  \ifx\cv@entrylogoA\cv@logorempty
-    \noindent{\small\color{cvtext}\textbf{#1}\hspace{0.28em}{\color{cvmuted}\textemdash}\hspace{0.28em}#2\hspace{0.28em}{\color{cvmuted}\textemdash}\hspace{0.28em}{\color{cvmuted}#3}\par}%
-  \else
-    \begingroup
-    \setlength{\cvlogocolwidth}{1.75cm}%
-    \begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}X@{}>{\raggedleft\arraybackslash}m{\cvlogocolwidth}@{}}
-      {\small\color{cvtext}\textbf{#1}\hspace{0.28em}{\color{cvmuted}\textemdash}\hspace{0.28em}#2\hspace{0.28em}{\color{cvmuted}\textemdash}\hspace{0.28em}{\color{cvmuted}#3}} &
-      \cvlogocellcompact{%
-        \ifx\cv@entrylogoB\cv@logorempty
-          \cvprintlogosmall{#4}%
-        \else
-          \cvprintlogos{#4}{#5}%
-        \fi
-      } \\
-    \end{tabularx}%
-    \endgroup
-  \fi
-}
+% Hidden across all CV variants; original body kept commented for easy restore.
+\newcommand{\cveducationinline}[5]{}%
+% \newcommand{\cveducationinline}[5]{%
+%   \noindent
+%   \def\cv@entrylogoA{#4}%
+%   \def\cv@entrylogoB{#5}%
+%   \def\cv@logorempty{}%
+%   \ifx\cv@entrylogoA\cv@logorempty
+%     \noindent{\small\color{cvtext}\textbf{#1}\hspace{0.28em}{\color{cvmuted}\textemdash}\hspace{0.28em}#2\hspace{0.28em}{\color{cvmuted}\textemdash}\hspace{0.28em}{\color{cvmuted}#3}\par}%
+%   \else
+%     \begingroup
+%     \setlength{\cvlogocolwidth}{1.75cm}%
+%     \begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}X@{}>{\raggedleft\arraybackslash}m{\cvlogocolwidth}@{}}
+%       {\small\color{cvtext}\textbf{#1}\hspace{0.28em}{\color{cvmuted}\textemdash}\hspace{0.28em}#2\hspace{0.28em}{\color{cvmuted}\textemdash}\hspace{0.28em}{\color{cvmuted}#3}} &
+%       \cvlogocellcompact{%
+%         \ifx\cv@entrylogoB\cv@logorempty
+%           \cvprintlogosmall{#4}%
+%         \else
+%           \cvprintlogos{#4}{#5}%
+%         \fi
+%       } \\
+%     \end{tabularx}%
+%     \endgroup
+%   \fi
+% }
 
 % --- Languages / Community (inline compact) ---
 \newcommand{\cvlanguagesinline}[1]{%
