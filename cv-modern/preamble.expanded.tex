@@ -1,0 +1,10 @@
+% Expanded-variant preamble: same layout as standard, with font fix for fi/fl ligatures.
+\input{preamble}
+
+% Latin Modern preserves fi/fl/ff ligatures correctly (avoids Snowake, classi cation, etc.).
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+
+% Keep experience blocks from splitting awkwardly across pages.
+\usepackage{needspace}
+\newcommand{\cventrykeep}{\Needspace{9\baselineskip}}
