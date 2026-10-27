@@ -39,10 +39,10 @@ EXPANDED_ONLY = (
     "SMOTE",
 )
 
-# Markers that should remain in short (original) skills/summary.
+# Markers that should remain in short skills/summary after the integral update.
 SHORT_MARKERS = {
-    "en_short": ("FastAPI", "LangChain", "Azure ML"),
-    "es_short": ("FastAPI", "LangChain", "Azure ML"),
+    "en_short": ("FastAPI", "LLM-as-a-Judge", "Microsoft Fabric"),
+    "es_short": ("FastAPI", "LLM-as-a-Judge", "Microsoft Fabric"),
 }
 
 
@@ -52,8 +52,17 @@ def sha256(path: Path) -> str:
 
 def read_sources(variant_dir: Path) -> str:
     parts = []
-    for name in ("00-header.tex", "10-summary.tex", "20-skills.tex", "30-experience.tex"):
-        parts.append((variant_dir / name).read_text(encoding="utf-8"))
+    for name in (
+        "00-header.tex",
+        "10-summary.tex",
+        "20-skills.tex",
+        "30-experience.tex",
+        "35-projects.tex",
+        "45-certifications.tex",
+    ):
+        path = variant_dir / name
+        if path.exists():
+            parts.append(path.read_text(encoding="utf-8"))
     return "\n".join(parts)
 
 

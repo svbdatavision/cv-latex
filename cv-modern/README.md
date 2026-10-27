@@ -14,18 +14,20 @@ Short and expanded content are independent directories. Editing `content/*/expan
 ```text
 content/
 ├── en/
-│   ├── short/        # original EN CV content
-│   ├── expanded/     # Expanded CV content
-│   ├── 40-education.tex
+│   ├── short/              # short EN (summary, skills, experience, projects, certs)
+│   ├── expanded/           # expanded EN
+│   ├── 40-education.tex    # shared EN education
 │   ├── 50-languages.tex
 │   └── 55-community.tex
 └── es/
-    ├── short/        # original ES CV content
-    ├── expanded/     # CV Ampliado content
+    ├── short/              # short ES
+    ├── expanded/           # ampliado ES
     ├── 40-education.tex
     ├── 50-languages.tex
     └── 55-community.tex
 ```
+
+Selected client projects live in `*/35-projects.tex`. Databricks certifications live in `*/45-certifications.tex`.
 
 ## Build
 
