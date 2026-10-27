@@ -13,12 +13,12 @@
 \newcommand{\cvsectiongapbelow}{0.1em}
 \newcommand{\cvsectionskillsgapbelow}{0.1em}
 
-\newcommand{\cvsectioncompactgapbelow}{0.06em}
+\newcommand{\cvsectioncompactgapbelow}{0.02em}
 
 % Experience: pre-entry gap only (no trailing par noise)
-\newcommand{\cventryvspace}{0.28em}
-\newcommand{\cventrycompactvspace}{0.18em}
-\newcommand{\cventrylegacyvspace}{0.12em}
+\newcommand{\cventryvspace}{0.16em}
+\newcommand{\cventrycompactvspace}{0.12em}
+\newcommand{\cventrylegacyvspace}{0.08em}
 
 \newcommand{\cvheaderafter}{0.28em}
 
@@ -136,7 +136,7 @@
 }
 
 \newenvironment{cvitems}{%
-  \begin{itemize}[leftmargin=1.1em, itemsep=1.25pt, topsep=1.5pt, parsep=0pt, partopsep=0pt, after=\vspace{0pt}]%
+  \begin{itemize}[leftmargin=1.1em, itemsep=0.85pt, topsep=1.0pt, parsep=0pt, partopsep=0pt, after=\vspace{0pt}]%
 }{%
   \end{itemize}%
 }
@@ -182,8 +182,9 @@
 }
 
 \newcommand{\cvlogocellcompact}[1]{%
-  \begin{minipage}[c]{\cvlogocolwidth}%
+  \begin{minipage}[t]{\cvlogocolwidth}%
     \raggedleft
+    \vspace{0pt}%
     #1%
   \end{minipage}%
 }
@@ -253,26 +254,34 @@
 
 % Education entry without graduation date: #1 program line, #2 institution, #3 logoA, #4 logoB
 \newcommand{\cveducationentry}[4]{%
+  \vspace*{-1.20em}%
   \noindent
   \def\cv@entrylogoA{#3}%
   \def\cv@entrylogoB{#4}%
   \def\cv@logorempty{}%
   \ifx\cv@entrylogoA\cv@logorempty
-    \noindent{\small\color{cvtext}\textbf{#1}\par}%
-    \noindent{\small\color{cvmuted}#2\par}%
+    {\small\color{cvtext}\textbf{#1}\par}%
+    {\small\color{cvmuted}#2\par}%
   \else
     \begingroup
-    \setlength{\cvlogocolwidth}{1.75cm}%
-    \begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}X@{}>{\raggedleft\arraybackslash}m{\cvlogocolwidth}@{}}
-      {\small\color{cvtext}\textbf{#1}\par\vspace{0.06em}{\small\color{cvmuted}#2}} &
-      \cvlogocellcompact{%
-        \ifx\cv@entrylogoB\cv@logorempty
-          \cvprintlogosmall{#3}%
-        \else
-          \cvprintlogos{#3}{#4}%
-        \fi
-      } \\
-    \end{tabularx}%
+    \setlength{\cvlogocolwidth}{2.15cm}%
+    \begin{minipage}[t]{\dimexpr\textwidth-\cvlogocolwidth-0.12cm\relax}
+      \vspace{0pt}%
+      {\small\color{cvtext}\textbf{#1}\par}%
+      \vspace{0.02em}%
+      {\small\color{cvmuted}#2\par}%
+    \end{minipage}%
+    \hfill
+    \begin{minipage}[t]{\cvlogocolwidth}
+      \raggedleft
+      \vspace{0pt}%
+      \ifx\cv@entrylogoB\cv@logorempty
+        \cvprintlogosmall{#3}%
+      \else
+        \cvprintlogos{#3}{#4}%
+      \fi
+    \end{minipage}%
+    \par
     \endgroup
   \fi
 }

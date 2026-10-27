@@ -33,7 +33,6 @@ SHORT_BASENAMES := \
 	10-summary.tex \
 	20-skills.tex \
 	30-experience.tex \
-	35-projects.tex \
 	45-certifications.tex
 
 SHARED_BASENAMES := \
@@ -51,7 +50,6 @@ EN_EXPANDED_CONTENT := \
 	content/en/expanded/10-summary.tex \
 	content/en/expanded/20-skills.tex \
 	content/en/expanded/30-experience.tex \
-	content/en/expanded/35-projects.tex \
 	content/en/expanded/45-certifications.tex \
 	$(addprefix content/en/,$(SHARED_BASENAMES))
 
@@ -60,7 +58,6 @@ ES_EXPANDED_CONTENT := \
 	content/es/expanded/10-summary.tex \
 	content/es/expanded/20-skills.tex \
 	content/es/expanded/30-experience.tex \
-	content/es/expanded/35-projects.tex \
 	content/es/expanded/45-certifications.tex \
 	$(addprefix content/es/,$(SHARED_BASENAMES))
 

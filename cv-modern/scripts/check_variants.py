@@ -57,7 +57,6 @@ def read_sources(variant_dir: Path) -> str:
         "10-summary.tex",
         "20-skills.tex",
         "30-experience.tex",
-        "35-projects.tex",
         "45-certifications.tex",
     ):
         path = variant_dir / name

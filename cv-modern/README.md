@@ -27,7 +27,7 @@ content/
     └── 55-community.tex
 ```
 
-Selected client projects live in `*/35-projects.tex`. Databricks certifications live in `*/45-certifications.tex`.
+Recent client engagements (Arcos Dorados, Colcomercio, Colsubsidio, Aurora/HeliOS) live in `*/30-experience.tex` with the rest of professional experience. Databricks certifications live in `*/45-certifications.tex`.
 
 ## Build
 
