@@ -4,23 +4,23 @@
 \newlength{\cvlogocolwidth}
 \setlength{\cvlogocolwidth}{1.4cm}
 \newlength{\cvlogowidth}
-\setlength{\cvlogowidth}{1.05cm}
+\setlength{\cvlogowidth}{1.22cm}
 
 % Section header: gap before top rule | inner top/bottom | gap after bottom rule
-\newcommand{\cvsectiongapabove}{0.5em}
-\newcommand{\cvsectioninnertop}{0.1em}
-\newcommand{\cvsectioninnerbottom}{0.08em}
-\newcommand{\cvsectiongapbelow}{0.12em}
-\newcommand{\cvsectionskillsgapbelow}{0.12em}
+\newcommand{\cvsectiongapabove}{0.32em}
+\newcommand{\cvsectioninnertop}{0.08em}
+\newcommand{\cvsectioninnerbottom}{0.06em}
+\newcommand{\cvsectiongapbelow}{0.1em}
+\newcommand{\cvsectionskillsgapbelow}{0.1em}
 
-\newcommand{\cvsectioncompactgapbelow}{0.08em}
+\newcommand{\cvsectioncompactgapbelow}{0.06em}
 
 % Experience: pre-entry gap only (no trailing par noise)
-\newcommand{\cventryvspace}{0.38em}
-\newcommand{\cventrycompactvspace}{0.24em}
-\newcommand{\cventrylegacyvspace}{0.18em}
+\newcommand{\cventryvspace}{0.28em}
+\newcommand{\cventrycompactvspace}{0.18em}
+\newcommand{\cventrylegacyvspace}{0.12em}
 
-\newcommand{\cvheaderafter}{0.38em}
+\newcommand{\cvheaderafter}{0.28em}
 
 % Profile photo (source: images/CV_photo; ~27% smaller than initial header layout)
 \newlength{\cvphotocolwidth}
@@ -32,9 +32,9 @@
   \includegraphics[width=\cvphotowidth,keepaspectratio]{CV_photo}%
 }
 
-\newcommand{\cvskillcategorygap}{0.2em}
-\newcommand{\cvskilltitleitems}{0.05em}
-\newcommand{\cvskillitemsafter}{0.15em}
+\newcommand{\cvskillcategorygap}{0.14em}
+\newcommand{\cvskilltitleitems}{0.04em}
+\newcommand{\cvskillitemsafter}{0.1em}
 
 % --- Header ---
 \newcommand{\cvname}[1]{%
@@ -96,6 +96,7 @@
 
 \newcommand{\cvsectioncompact}[1]{%
   \cvsectionblock{#1}{\cvsectioncompactgapbelow}%
+  \nopagebreak
 }
 
 % --- Skills ---
@@ -160,7 +161,7 @@
 }
 
 \newlength{\cvlogosmallwidth}
-\setlength{\cvlogosmallwidth}{0.72cm}
+\setlength{\cvlogosmallwidth}{0.98cm}
 
 \newcommand{\cvprintlogosmall}[1]{%
   \IfFileExists{assets/logos/#1}{%
@@ -225,7 +226,7 @@
   \cventry@core{#1}{#2}{#3}{#4}{#5}{#6}{\cventrylegacyvspace}%
 }
 
-% --- Education (single-line compact) ---
+% --- Education (single-line compact; legacy 5-arg form) ---
 \newcommand{\cveducationinline}[5]{%
   \noindent
   \def\cv@entrylogoA{#4}%
@@ -249,6 +250,88 @@
     \endgroup
   \fi
 }
+
+% Education entry without graduation date: #1 program line, #2 institution, #3 logoA, #4 logoB
+\newcommand{\cveducationentry}[4]{%
+  \noindent
+  \def\cv@entrylogoA{#3}%
+  \def\cv@entrylogoB{#4}%
+  \def\cv@logorempty{}%
+  \ifx\cv@entrylogoA\cv@logorempty
+    \noindent{\small\color{cvtext}\textbf{#1}\par}%
+    \noindent{\small\color{cvmuted}#2\par}%
+  \else
+    \begingroup
+    \setlength{\cvlogocolwidth}{1.75cm}%
+    \begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}X@{}>{\raggedleft\arraybackslash}m{\cvlogocolwidth}@{}}
+      {\small\color{cvtext}\textbf{#1}\par\vspace{0.06em}{\small\color{cvmuted}#2}} &
+      \cvlogocellcompact{%
+        \ifx\cv@entrylogoB\cv@logorempty
+          \cvprintlogosmall{#3}%
+        \else
+          \cvprintlogos{#3}{#4}%
+        \fi
+      } \\
+    \end{tabularx}%
+    \endgroup
+  \fi
+}
+
+% Client project entry without employment dates: #1 project, #2 client, #3 roletype, #4 logo, #5 items
+\newcommand{\cventryproject}[5]{%
+  \vspace{\cventrycompactvspace}%
+  \noindent
+  \def\cv@entrylogo{#4}%
+  \def\cv@logorempty{}%
+  \ifx\cv@entrylogo\cv@logorempty
+    \begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}X@{}}
+      \begin{minipage}[t]{\linewidth}
+        \cvjobheadline{#1}{#2}{#3}%
+        #5%
+      \end{minipage} \\
+    \end{tabularx}%
+  \else
+    \begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}X@{}>{\raggedleft\arraybackslash}m{\cvlogocolwidth}@{}}
+      \begin{minipage}[t]{\linewidth}
+        \cvjobheadline{#1}{#2}{#3}%
+        #5%
+      \end{minipage} &
+      \cvlogocell{\cvprintlogo{#4}} \\
+    \end{tabularx}%
+  \fi
+}
+
+\newcommand{\cvtechstack}[1]{%
+  \vspace{0.04em}%
+  \noindent{\footnotesize\color{cvmuted}\textbf{Tech Stack:}\hspace{0.28em}#1\par}%
+}
+
+\newcommand{\cvtechstackes}[1]{%
+  \vspace{0.04em}%
+  \noindent{\footnotesize\color{cvmuted}\textbf{Tecnologías:}\hspace{0.28em}#1\par}%
+}
+
+% Certifications: #1 credential name, #2 URL, #3 optional logo filename (may be empty)
+\newcommand{\cvcertitem}[3]{%
+  \vspace{0.02em}%
+  \noindent
+  \def\cv@entrylogo{#3}%
+  \def\cv@logorempty{}%
+  \ifx\cv@entrylogo\cv@logorempty
+    \noindent{\small\bfseries\color{cvtext}\href{#2}{#1}\par}%
+  \else
+    \begingroup
+    \setlength{\cvlogocolwidth}{1.75cm}%
+    \begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}X@{}>{\raggedleft\arraybackslash}m{\cvlogocolwidth}@{}}
+      {\small\bfseries\color{cvtext}\href{#2}{#1}} &
+      \cvlogocellcompact{\cvprintlogosmall{#3}} \\
+    \end{tabularx}%
+    \endgroup
+  \fi
+}
+
+% Keep a compact trailing block (certs/education/community) from orphaning.
+\newcommand{\cvkeepblock}[1]{\Needspace{#1}}
 
 % --- Languages / Community (inline compact) ---
 \newcommand{\cvlanguagesinline}[1]{%
